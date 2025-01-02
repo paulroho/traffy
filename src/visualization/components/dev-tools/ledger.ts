@@ -13,11 +13,14 @@ export function ledger(): Renderable {
   }
 
   function showPosition(ctx: CanvasRenderingContext2D, x: number, y: number) {
+    const text = x + ', ' + y;
+
     ctx.font = "1rem sans-serif";
     ctx.fillStyle = "yellow";
-    ctx.textAlign = "right";
-    ctx.textBaseline = "bottom";
-    ctx.fillText(x + ', ' + y, x, y);
+    const metrics = ctx.measureText(text);
+    ctx.textAlign = metrics.width < x ? "right" : "left";
+    ctx.textBaseline = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent < y ? "bottom" : "top";
+    ctx.fillText(text, x, y);
   }
 
   function drawLedger(ctx: CanvasRenderingContext2D, x: number, y: number) {
