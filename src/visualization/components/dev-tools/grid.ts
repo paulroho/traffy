@@ -12,7 +12,10 @@ type GridOptions = {
 
 export default function grid(options: GridOptions): Renderable {
     function* positions(options: GridOptionsDimension) {
-        for (let pos = options.start; pos <= options.end; pos += options.interval) {
+        const interval = options.interval;
+        const start = Math.floor(options.start / interval) * interval;
+
+        for (let pos = start; pos <= options.end; pos += interval) {
             yield pos;
         }
     };
