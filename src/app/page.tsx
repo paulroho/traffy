@@ -8,6 +8,7 @@ export default function Home() {
           className="dark:invert"
           src="/next.svg"
           alt="Next.js logo"
+          style={{width:180, height:38}}
           width={180}
           height={38}
           priority
@@ -36,7 +37,8 @@ export default function Home() {
               alt="Vercel logomark"
               width={20}
               height={20}
-            />
+              style={{width:20, height:20}}
+              />
             Deploy now
           </a>
           <a
