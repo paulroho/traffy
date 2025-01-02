@@ -1,16 +1,13 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-export default function Visualization() {
+type VisualizationProps = {
+    draw: (ctx:CanvasRenderingContext2D, frameCount:number) => void,
+};
+
+export default function Visualization(props: VisualizationProps) {
     const canvasRef = useRef(null);
-
-    const draw = useCallback((ctx: CanvasRenderingContext2D, frameCount: number) => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.fillStyle='#ff3456';
-        ctx.fillRect(10, 10, ctx.canvas.width-20, ctx.canvas.height-20);
-        ctx.strokeText(frameCount + '', 50, 50);
-    }, []);
 
     useEffect(() => {
         const canvas: HTMLCanvasElement = canvasRef.current!;
@@ -20,7 +17,7 @@ export default function Visualization() {
         let frameCount = 0;
     
         const render = () => {
-            draw(context, frameCount);
+            props.draw(context, frameCount);
             frameCount++;
             frameId = window.requestAnimationFrame(render);
         };
@@ -30,7 +27,7 @@ export default function Visualization() {
         return () => {
             window.cancelAnimationFrame(frameId);
         }
-    }, [draw]);
+    }, [props]);
 
     return (
         <canvas ref={canvasRef} className="w-full h-full border-red-300 border-2"></canvas>
