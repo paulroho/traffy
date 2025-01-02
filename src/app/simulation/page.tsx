@@ -1,13 +1,13 @@
 'use client'
 
-import Canvas from "@/components/Canvas";
+import Canvas, { Coordinates } from "@/components/Canvas";
 import { clock } from "@/visualization/components/clock";
 import { debugInfo } from "@/visualization/components/debugInfo";
 import grid from "@/visualization/components/grid";
 import { someBackground } from "@/visualization/components/someBackground";
 
 export default function Simulation() {
-  const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
+  const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => {
     const aGrid = grid({
       x: {
         start: 0,
@@ -23,12 +23,12 @@ export default function Simulation() {
 
     const graphic = [
       someBackground(),
-      debugInfo(),
       aGrid,
       clock(),
+      debugInfo(),
     ];
 
-    graphic.forEach(r => r.render(ctx, frameCount));
+    graphic.forEach(r => r.render(ctx, frameCount, mousePosition));
   }
 
   return (

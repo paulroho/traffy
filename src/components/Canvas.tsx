@@ -1,13 +1,18 @@
 'use client'
 
-import { useEffect, useRef } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
+
+export type Coordinates = {
+    x: number,
+    y: number,
+}
 
 type CanvasProps = {
-    draw: (ctx:CanvasRenderingContext2D, frameCount:number) => void,
+    draw: (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => void,
 };
-
 export default function Canvas(props: CanvasProps) {
     const canvasRef = useRef(null);
+    const [mouseClientCoords, setMouseClientCoords] = useState({ clientX: 0, clientY: 0 })
 
     useEffect(() => {
         const canvas: HTMLCanvasElement = canvasRef.current!;
@@ -16,8 +21,8 @@ export default function Canvas(props: CanvasProps) {
         let frameId = 0;
         let frameCount = 0;
 
-        const draw = (ctx:CanvasRenderingContext2D, frameCount:number) => {
-            const { width, height } = ctx.canvas.getBoundingClientRect();
+        const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
+            const { left, top, width, height } = ctx.canvas.getBoundingClientRect();
             if (ctx.canvas.width !== width) {
                 ctx.canvas.width = width;
             }
@@ -27,9 +32,13 @@ export default function Canvas(props: CanvasProps) {
 
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-            props.draw(ctx, frameCount);
+            const mousePos: Coordinates = {
+                x: mouseClientCoords.clientX - left,
+                y: mouseClientCoords.clientY - top,
+            }
+            props.draw(ctx, frameCount, mousePos);
         }
-    
+
         const render = () => {
             draw(context, frameCount);
             frameCount++;
@@ -41,9 +50,20 @@ export default function Canvas(props: CanvasProps) {
         return () => {
             window.cancelAnimationFrame(frameId);
         }
-    }, [props]);
+    }, [props, mouseClientCoords]);
+
+    const onMouseMove: MouseEventHandler<HTMLCanvasElement> = ($event) => {
+        setMouseClientCoords({
+            clientX: $event.clientX,
+            clientY: $event.clientY
+        });
+    }
 
     return (
-        <canvas ref={canvasRef} className="w-full h-full border-red-300 border-2"></canvas>
+        <canvas
+            ref={canvasRef}
+            className="w-full h-full border-red-300 border-2"
+            onMouseMove={onMouseMove}
+        ></canvas>
     );
 }
