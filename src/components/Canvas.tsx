@@ -25,6 +25,8 @@ export default function Canvas(props: CanvasProps) {
                 ctx.canvas.height = height;
             }
 
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
             props.draw(ctx, frameCount);
         }
     
