@@ -4,11 +4,6 @@ import Canvas from "@/components/Canvas";
 
 export default function Simulation() {
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
-
-    const { width, height } = ctx.canvas.getBoundingClientRect();
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
-
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillStyle = '#ff3456';
     ctx.fillRect(10, 10, ctx.canvas.width - 20, ctx.canvas.height - 20);

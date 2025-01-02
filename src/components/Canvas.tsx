@@ -15,9 +15,21 @@ export default function Canvas(props: CanvasProps) {
 
         let frameId = 0;
         let frameCount = 0;
+
+        const draw = (ctx:CanvasRenderingContext2D, frameCount:number) => {
+            const { width, height } = ctx.canvas.getBoundingClientRect();
+            if (ctx.canvas.width !== width) {
+                ctx.canvas.width = width;
+            }
+            if (ctx.canvas.height = height) {
+                ctx.canvas.height = height;
+            }
+
+            props.draw(ctx, frameCount);
+        }
     
         const render = () => {
-            props.draw(context, frameCount);
+            draw(context, frameCount);
             frameCount++;
             frameId = window.requestAnimationFrame(render);
         };
