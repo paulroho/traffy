@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
-type VisualizationProps = {
+type CanvasProps = {
     draw: (ctx:CanvasRenderingContext2D, frameCount:number) => void,
 };
 
-export default function Visualization(props: VisualizationProps) {
+export default function Canvas(props: CanvasProps) {
     const canvasRef = useRef(null);
 
     useEffect(() => {

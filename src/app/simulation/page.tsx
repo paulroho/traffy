@@ -1,6 +1,6 @@
 'use client'
 
-import Visualization from "@/components/Visualization";
+import Canvas from "@/components/Canvas";
 
 export default function Simulation() {
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
@@ -12,7 +12,7 @@ export default function Simulation() {
   return (
     <div className="h-lvh p-4">
       <main className="flex flex-col items-center h-full">
-        <Visualization draw={draw}/>
+        <Canvas draw={draw}/>
       </main>
     </div>
   );
