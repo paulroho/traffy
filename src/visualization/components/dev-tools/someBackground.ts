@@ -1,4 +1,4 @@
-import { Renderable } from "../Renderable";
+import { Renderable } from "../../Renderable";
 
 export function someBackground(): Renderable {
   return {

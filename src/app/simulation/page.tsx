@@ -1,16 +1,16 @@
 'use client'
 
 import Canvas, { Coordinates } from "@/components/Canvas";
-import { clock } from "@/visualization/components/clock";
-import { debugInfo } from "@/visualization/components/debugInfo";
-import grid from "@/visualization/components/grid";
-import { someBackground } from "@/visualization/components/someBackground";
+import { clock } from "@/visualization/components/dev-tools/clock";
+import { debugInfo } from "@/visualization/components/dev-tools/debugInfo";
+import grid from "@/visualization/components/dev-tools/grid";
+import { someBackground } from "@/visualization/components/dev-tools/someBackground";
 
 export default function Simulation() {
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => {
     const aGrid = grid({
       x: {
-        start: 0,
+        start: -250,
         end: 10000,
         interval: 500,
       },
