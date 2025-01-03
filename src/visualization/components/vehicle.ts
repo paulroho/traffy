@@ -9,6 +9,7 @@ export type VehicleOptions = {
 export type VehicleState = {
   position: Coordinates,
   angle: number,
+  turnAngle: number,
 }
 export default function vehicle(options: VehicleOptions, state: VehicleState): Renderable {
   return {
@@ -45,19 +46,21 @@ export default function vehicle(options: VehicleOptions, state: VehicleState): R
     const rearTiresX = 0.2 * options.length;
     const frontTiresX = 0.8 * options.length;
 
-    drawWheel(ctx, { x: rearTiresX, y: 0 });
-    drawWheel(ctx, { x: frontTiresX, y: 0 });
-    drawWheel(ctx, { x: rearTiresX, y: options.width });
-    drawWheel(ctx, { x: frontTiresX, y: options.width });
+    drawWheel(ctx, { x: frontTiresX, y: 0 }, state.turnAngle);
+    drawWheel(ctx, { x: frontTiresX, y: options.width }, state.turnAngle);
+    drawWheel(ctx, { x: rearTiresX, y: 0 }, 0);
+    drawWheel(ctx, { x: rearTiresX, y: options.width }, 0);
   }
 
-  function drawWheel(ctx: CanvasRenderingContext2D, position: Coordinates) {
+  function drawWheel(ctx: CanvasRenderingContext2D, position: Coordinates, angle: number) {
     const width = 10;
     const diameter = 20;
 
     ctx.save();
 
-    ctx.translate(position.x - diameter / 2, position.y - width / 2);
+    ctx.translate(position.x, position.y);
+    ctx.rotate(angle);
+    ctx.translate(- diameter / 2, - width / 2);
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, diameter, width);
 

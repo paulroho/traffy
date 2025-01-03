@@ -66,7 +66,8 @@ export default function Simulation() {
         x: duration * velocity,
         y: 500,
       },
-      angle: 0.2,
+      angle: Math.PI/10,
+      turnAngle: -Math.PI/8,
     };
 
     return [
