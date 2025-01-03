@@ -26,19 +26,19 @@ export default function Simulation() {
     });
 
     const carOptions: VehicleOptions = {
-      length: 150,
+      length: 120,
       width: 50,
       color: "rgba(0, 127, 255, 0.75)",
     };
     const now = new Date();
     const duration = (now.getTime() - startTime.getTime()) / 1000;
-    const velocity = 50;
+    const velocity = 20;
     const carState: VehicleState = {
       position: {
         x: duration * velocity,
         y: 500,
       },
-      angle: 0,
+      angle: 0.2,
     };
 
     const background = [
