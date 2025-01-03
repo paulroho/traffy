@@ -28,6 +28,7 @@ export default function Simulation() {
     const carOptions: VehicleOptions = {
       length: 150,
       width: 50,
+      color: "rgba(0, 127, 255, 0.75)",
     };
     const now = new Date();
     const duration = (now.getTime() - startTime.getTime()) / 1000;
