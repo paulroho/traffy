@@ -12,7 +12,35 @@ export default function Simulation() {
   const startTime = new Date();
 
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => {
-    const aGrid = grid({
+    const layers = [
+      getBackgroundLayer(),
+      getGraphicLayer(),
+      getOverlayLayer(),
+    ];
+
+    layers.forEach(
+      layer => layer.forEach(
+        r => r.render(ctx, frameCount, mousePosition)
+      )
+    );
+  }
+
+  return (
+    <div className="h-lvh p-4">
+      <main className="flex flex-col items-center h-full">
+        <Canvas draw={draw} />
+      </main>
+    </div>
+  );
+
+  function getBackgroundLayer() {
+    return [
+      someBackground(),
+    ];
+  }
+
+  function getGraphicLayer() {
+    const gridOptions = {
       x: {
         start: -250,
         end: 10000,
@@ -23,7 +51,7 @@ export default function Simulation() {
         end: +1000,
         interval: 100,
       }
-    });
+    };
 
     const carOptions: VehicleOptions = {
       length: 120,
@@ -41,33 +69,17 @@ export default function Simulation() {
       angle: 0.2,
     };
 
-    const background = [
-      someBackground(),
-    ];
-
-    const graphic = [
-      aGrid,
+    return [
+      grid(gridOptions),
       vehicle(carOptions, carState),
     ];
+  }
 
-    const overlay = [
+  function getOverlayLayer() {
+    return [
       clock(),
       ledger(),
       debugInfo(),
     ];
-
-    background.forEach(r => r.render(ctx, frameCount, mousePosition));
-
-    graphic.forEach(r => r.render(ctx, frameCount, mousePosition));
-
-    overlay.forEach(r => r.render(ctx, frameCount, mousePosition));
   }
-
-  return (
-    <div className="h-lvh p-4">
-      <main className="flex flex-col items-center h-full">
-        <Canvas draw={draw} />
-      </main>
-    </div>
-  );
 }
