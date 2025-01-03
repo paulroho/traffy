@@ -36,22 +36,22 @@ export default function vehicle(options: VehicleOptions, state: VehicleState): R
     ctx.fillStyle = options.color;
     ctx.fillRect(0, 0, options.length, options.width);
 
-    drawTires(ctx);
+    drawWheels(ctx);
 
     ctx.restore();
   }
 
-  function drawTires(ctx: CanvasRenderingContext2D) {
+  function drawWheels(ctx: CanvasRenderingContext2D) {
     const rearTiresX = 0.2 * options.length;
     const frontTiresX = 0.8 * options.length;
 
-    drawTire(ctx, { x: rearTiresX, y: 0 });
-    drawTire(ctx, { x: frontTiresX, y: 0 });
-    drawTire(ctx, { x: rearTiresX, y: options.width });
-    drawTire(ctx, { x: frontTiresX, y: options.width });
+    drawWheel(ctx, { x: rearTiresX, y: 0 });
+    drawWheel(ctx, { x: frontTiresX, y: 0 });
+    drawWheel(ctx, { x: rearTiresX, y: options.width });
+    drawWheel(ctx, { x: frontTiresX, y: options.width });
   }
 
-  function drawTire(ctx: CanvasRenderingContext2D, position: Coordinates) {
+  function drawWheel(ctx: CanvasRenderingContext2D, position: Coordinates) {
     const width = 10;
     const diameter = 20;
 
