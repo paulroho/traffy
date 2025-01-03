@@ -1,6 +1,6 @@
 import { Renderable } from "../../Renderable";
 
-export function ledger(): Renderable {
+export default function ledger(): Renderable {
   return {
     render: (ctx, _, { x, y }) => {
       ctx.save();

@@ -1,6 +1,6 @@
 import { Renderable } from "../../Renderable";
 
-export function someBackground(): Renderable {
+export default function someBackground(): Renderable {
   return {
     render: ctx => {
       ctx.fillStyle = '#ff3456';

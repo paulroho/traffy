@@ -1,11 +1,11 @@
 'use client'
 
 import Canvas, { Coordinates } from "@/components/Canvas";
-import { clock } from "@/visualization/components/dev-tools/clock";
-import { debugInfo } from "@/visualization/components/dev-tools/debugInfo";
+import clock from "@/visualization/components/dev-tools/clock";
+import debugInfo from "@/visualization/components/dev-tools/debugInfo";
 import grid from "@/visualization/components/dev-tools/grid";
-import { someBackground } from "@/visualization/components/dev-tools/someBackground";
-import { ledger } from "@/visualization/components/dev-tools/ledger";
+import someBackground from "@/visualization/components/dev-tools/someBackground";
+import ledger from "@/visualization/components/dev-tools/ledger";
 
 export default function Simulation() {
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => {

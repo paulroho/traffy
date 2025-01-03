@@ -1,6 +1,6 @@
 import { Renderable } from "../../Renderable";
 
-export function clock(): Renderable {
+export default function clock(): Renderable {
   return {
     render: ctx => {
       const center = {

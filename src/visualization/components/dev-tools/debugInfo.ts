@@ -1,6 +1,6 @@
 import { Renderable } from "../../Renderable";
 
-export function debugInfo(): Renderable {
+export default function debugInfo(): Renderable {
   return {
     render: (ctx, frameCount) => {
       ctx.save();
