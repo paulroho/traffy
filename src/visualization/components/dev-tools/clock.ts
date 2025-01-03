@@ -30,12 +30,12 @@ export default function clock(): Renderable {
       ctx.textBaseline = "middle";
       ctx.fillText(now.toLocaleTimeString(), 0, 0);
 
+      ctx.restore();
+
       ctx.fillStyle = "black";
       ctx.beginPath();
       ctx.arc(center.x, center.y, 4, 0, 2 * Math.PI);
       ctx.fill();
-
-      ctx.restore();
     }
   };
 }
