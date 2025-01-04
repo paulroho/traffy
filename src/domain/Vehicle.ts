@@ -1,4 +1,4 @@
-import { Coordinates } from "@/components/Canvas";
+import { Position } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -7,7 +7,7 @@ export type VehicleOptions = {
 };
 
 export type VehicleState = {
-  position: Coordinates;
+  position: Position;
   angle: number;
   turnAngle: number;
 };

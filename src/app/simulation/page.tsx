@@ -1,6 +1,7 @@
 'use client'
 
-import Canvas, { Coordinates } from "@/components/Canvas";
+import Canvas from "@/components/Canvas";
+import { Position } from "@/domain/basics";
 import clock from "@/visualization/components/dev-tools/clock";
 import debugInfo from "@/visualization/components/dev-tools/debugInfo";
 import grid from "@/visualization/components/dev-tools/grid";
@@ -14,7 +15,7 @@ import renderableVehicle from "@/visualization/components/vehicle";
 export default function Simulation() {
   const startTime = new Date();
 
-  const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => {
+  const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => {
     const layers = [
       getBackgroundLayer(),
       getGraphicLayer(),

@@ -1,5 +1,5 @@
-import { Coordinates } from "@/components/Canvas";
-import { Renderable } from "../Renderable";
+import { Position } from "@/domain/basics";
+import { Renderable } from "../basics";
 import { Vehicle } from "@/domain/Vehicle";
 
 export default function renderableVehicle(vehicle: Vehicle): Renderable {
@@ -46,7 +46,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     drawWheel(ctx, { x: rearTiresX, y: options.width }, 0);
   }
 
-  function drawWheel(ctx: CanvasRenderingContext2D, position: Coordinates, angle: number) {
+  function drawWheel(ctx: CanvasRenderingContext2D, position: Position, angle: number) {
     const width = 10;
     const diameter = 20;
 

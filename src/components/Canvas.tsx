@@ -1,14 +1,10 @@
 'use client'
 
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
-
-export type Coordinates = {
-    x: number,
-    y: number,
-}
+import { Position } from "../domain/basics";
 
 type CanvasProps = {
-    draw: (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates) => void,
+    draw: (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => void,
 };
 export default function Canvas(props: CanvasProps) {
     const canvasRef = useRef(null);
@@ -32,10 +28,10 @@ export default function Canvas(props: CanvasProps) {
 
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-            const mousePos: Coordinates = {
+            const mousePos: Position = {
                 x: mouseClientCoords.clientX - left,
                 y: mouseClientCoords.clientY - top,
-            }
+            };
             props.draw(ctx, frameCount, mousePos);
         }
 

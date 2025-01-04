@@ -1,4 +1,4 @@
-import { Renderable } from "../../Renderable";
+import { Renderable } from "../../basics";
 
 export default function ledger(): Renderable {
   return {

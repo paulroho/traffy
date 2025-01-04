@@ -1,4 +1,4 @@
-import { Renderable } from "../../Renderable";
+import { Renderable } from "../../basics";
 
 type GridOptionsDimension = {
     start: number,
