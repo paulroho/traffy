@@ -1,6 +1,4 @@
 import { Coordinates } from "@/components/Canvas";
-import vehicle from "@/visualization/components/vehicle";
-import { Renderable } from "@/visualization/Renderable";
 
 export type VehicleOptions = {
   length: number;
@@ -14,15 +12,8 @@ export type VehicleState = {
   turnAngle: number;
 };
 
-export class Vehicle implements Renderable {
-  private options: VehicleOptions;
-  private state: VehicleState;
-
-  constructor(options: VehicleOptions, state: VehicleState) {
-    this.options = options;
-    this.state = state;
-  }
-  render(context: CanvasRenderingContext2D, frameCount: number, mousePosition: Coordinates): void {
-    vehicle(this.options, this.state).render(context, frameCount, mousePosition);
-  }
+export class Vehicle {
+  constructor(
+    public readonly options: VehicleOptions,
+    public readonly state: VehicleState) { };
 }

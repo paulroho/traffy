@@ -9,6 +9,7 @@ import ledger from "@/visualization/components/dev-tools/ledger";
 import { VehicleState } from "@/domain/Vehicle";
 import { VehicleOptions } from "@/domain/Vehicle";
 import { Vehicle } from "../../domain/Vehicle";
+import renderableVehicle from "@/visualization/components/vehicle";
 
 export default function Simulation() {
   const startTime = new Date();
@@ -75,7 +76,7 @@ export default function Simulation() {
 
     return [
       grid(gridOptions),
-      car,
+      renderableVehicle(car),
     ];
   }
 

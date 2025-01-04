@@ -1,8 +1,11 @@
 import { Coordinates } from "@/components/Canvas";
 import { Renderable } from "../Renderable";
-import { VehicleOptions, VehicleState } from "@/domain/Vehicle";
+import { Vehicle } from "@/domain/Vehicle";
 
-export default function vehicle(options: VehicleOptions, state: VehicleState): Renderable {
+export default function renderableVehicle(vehicle: Vehicle): Renderable {
+  const options = vehicle.options;
+  const state = vehicle.state;
+
   return {
     render: ctx => {
       ctx.save();
