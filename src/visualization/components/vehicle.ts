@@ -1,16 +1,7 @@
 import { Coordinates } from "@/components/Canvas";
 import { Renderable } from "../Renderable";
+import { VehicleOptions, VehicleState } from "@/domain/Vehicle";
 
-export type VehicleOptions = {
-  length: number,
-  width: number,
-  color: string,
-}
-export type VehicleState = {
-  position: Coordinates,
-  angle: number,
-  turnAngle: number,
-}
 export default function vehicle(options: VehicleOptions, state: VehicleState): Renderable {
   return {
     render: ctx => {

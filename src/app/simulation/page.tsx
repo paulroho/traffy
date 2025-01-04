@@ -6,7 +6,9 @@ import debugInfo from "@/visualization/components/dev-tools/debugInfo";
 import grid from "@/visualization/components/dev-tools/grid";
 import someBackground from "@/visualization/components/dev-tools/someBackground";
 import ledger from "@/visualization/components/dev-tools/ledger";
-import vehicle, { VehicleOptions, VehicleState } from "@/visualization/components/vehicle";
+import { VehicleState } from "@/domain/Vehicle";
+import { VehicleOptions } from "@/domain/Vehicle";
+import { Vehicle } from "../../domain/Vehicle";
 
 export default function Simulation() {
   const startTime = new Date();
@@ -61,18 +63,19 @@ export default function Simulation() {
     const now = new Date();
     const duration = (now.getTime() - startTime.getTime()) / 1000;
     const velocity = 20;
-    const carState: VehicleState = {
+    const carInitialState: VehicleState = {
       position: {
         x: duration * velocity,
         y: 500,
       },
-      angle: Math.PI/10,
-      turnAngle: -Math.PI/8,
+      angle: Math.PI / 10,
+      turnAngle: -Math.PI / 8,
     };
+    const car = new Vehicle(carOptions, carInitialState);
 
     return [
       grid(gridOptions),
-      vehicle(carOptions, carState),
+      car,
     ];
   }
 
