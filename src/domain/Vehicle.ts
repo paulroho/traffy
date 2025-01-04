@@ -1,4 +1,4 @@
-import { Position, Velocity2d } from "./basics";
+import { add, mult, Position, Velocity2d } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -23,12 +23,11 @@ export class Vehicle {
   get state() { return this._state; }
 
   advance(duration: number) {
+    const displacement = mult(this._state.velocity, duration);
+
     this._state = {
       ...this._state,
-      position: {
-        x: this._state.position.x + duration * this._state.velocity.x,
-        y: this._state.position.y + duration * this._state.velocity.y,
-      },
+      position: add(this._state.position, displacement),
     };
   }
 }
