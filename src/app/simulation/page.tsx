@@ -14,6 +14,26 @@ import renderableVehicle from "@/visualization/components/vehicle";
 
 export default function Simulation() {
   const startTime = new Date();
+  let previousTime = startTime;
+
+  const carOptions: VehicleOptions = {
+    length: 120,
+    width: 50,
+    color: "rgba(0, 127, 255, 0.75)",
+  };
+const carInitialState: VehicleState = {
+    position: {
+      x: 0,
+      y: 250,
+    },
+    velocity: {
+      x: 20,
+      y: 5,
+    },
+    angle: Math.PI / 10,
+    turnAngle: 0,
+  };
+  const car = new Vehicle(carOptions, carInitialState);
 
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => {
     const layers = [
@@ -57,23 +77,11 @@ export default function Simulation() {
       }
     };
 
-    const carOptions: VehicleOptions = {
-      length: 120,
-      width: 50,
-      color: "rgba(0, 127, 255, 0.75)",
-    };
     const now = new Date();
-    const duration = (now.getTime() - startTime.getTime()) / 1000;
-    const velocity = 20;
-    const carInitialState: VehicleState = {
-      position: {
-        x: duration * velocity,
-        y: 500,
-      },
-      angle: Math.PI / 10,
-      turnAngle: -Math.PI / 8,
-    };
-    const car = new Vehicle(carOptions, carInitialState);
+    const duration = (now.getTime() - previousTime.getTime()) / 1000;
+    previousTime = now;
+
+    car.advance(duration);
 
     return [
       grid(gridOptions),

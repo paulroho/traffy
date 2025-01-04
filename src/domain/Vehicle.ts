@@ -1,4 +1,4 @@
-import { Position } from "./basics";
+import { Position, Velocity2d } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -8,12 +8,27 @@ export type VehicleOptions = {
 
 export type VehicleState = {
   position: Position;
+  velocity: Velocity2d;
   angle: number;
   turnAngle: number;
 };
 
 export class Vehicle {
-  constructor(
-    public readonly options: VehicleOptions,
-    public readonly state: VehicleState) { };
+  private _state: VehicleState;
+
+  constructor(public readonly options: VehicleOptions, state: VehicleState) {
+    this._state = state;
+  };
+
+  get state() { return this._state; }
+
+  advance(duration: number) {
+    this._state = {
+      ...this._state,
+      position: {
+        x: this._state.position.x + duration * this._state.velocity.x,
+        y: this._state.position.y + duration * this._state.velocity.y,
+      },
+    };
+  }
 }

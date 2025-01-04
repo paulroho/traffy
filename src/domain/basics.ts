@@ -8,3 +8,4 @@ type Vector2d = {
 
 export type Position = Flavored<Vector2d, "position">;
 
+export type Velocity2d = Flavored<Vector2d, "velocity">;
