@@ -12,7 +12,7 @@ export type VehicleOptions = {
 
 export type VehicleState = {
   placement: Placement;
-  velocity: number;
+  speed: number;
   turnAngle: number;
 };
 
@@ -45,8 +45,8 @@ export class Vehicle {
     const position = this._state.placement.position;
     const angle = this._state.placement.angle;
 
-    const velocity2d = getVector(this._state.velocity, this._state.placement.angle)
-    const displacement = mult(velocity2d, duration);
+    const velocity = getVector(this._state.speed, this._state.placement.angle)
+    const displacement = mult(velocity, duration);
 
     const newPosition = add(position, displacement);
 
@@ -61,7 +61,7 @@ export class Vehicle {
 
     const rearAxisCenter = this._state.placement.position;
     const radius = distance(rotationCenter, rearAxisCenter);
-    const angularSpeed = this._state.velocity / radius;
+    const angularSpeed = this._state.speed / radius;
     const angle = duration * angularSpeed;
 
     return this.goCircular(rotationCenter, angle);

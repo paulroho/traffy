@@ -46,7 +46,7 @@ export default function Simulation() {
       },
       angle: -Math.PI / 2
     },
-    velocity: 100,
+    speed: 100,
     turnAngle: 0.3,
   };
   const car = new Vehicle(carOptions, carInitialState);
