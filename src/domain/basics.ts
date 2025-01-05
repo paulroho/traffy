@@ -45,7 +45,7 @@ export function rotateAround(position: Position, center: Position, angle: number
     return newPosition;
 }
 
-export function magnitudeInDirection(magnitude: number, angle: number): Vector2d {
+export function getVector(magnitude: number, angle: number): Vector2d {
     return {
         x: Math.cos(angle) * magnitude,
         y: Math.sin(angle) * magnitude,

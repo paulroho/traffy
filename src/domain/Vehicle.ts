@@ -1,4 +1,4 @@
-import { add, magnitudeInDirection, mult, Placement, Position, rotateAround } from "./basics";
+import { add, getVector, mult, Placement, Position, rotateAround } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -41,7 +41,7 @@ export class Vehicle {
     const position = this._state.placement.position;
     const angle = this._state.placement.angle;
 
-    const velocity2d = magnitudeInDirection(this._state.velocity, this._state.placement.angle)
+    const velocity2d = getVector(this._state.velocity, this._state.placement.angle)
     const displacement = mult(velocity2d, duration);
 
     const newPosition = add(position, displacement);
