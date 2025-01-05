@@ -37,13 +37,13 @@ export default function Simulation() {
   const carInitialState: VehicleState = {
     placement: {
       position: {
-        x: 0,
+        x: 100,
         y: 250,
       },
-      angle: Math.PI / 2
+      angle: -Math.PI / 2
     },
-    velocity: 20,
-    turnAngle: -0.2,
+    velocity: 0,
+    turnAngle: 0.3,
   };
   const car = new Vehicle(carOptions, carInitialState);
 

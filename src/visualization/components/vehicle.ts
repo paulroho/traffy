@@ -32,6 +32,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.fillRect(0, 0, options.length, options.width);
 
     drawWheels(ctx);
+    drawLights(ctx);
 
     ctx.restore();
   }
@@ -59,6 +60,35 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.fillRect(0, 0, diameter, width);
 
     ctx.restore();
+  }
+
+  function drawLights(ctx: CanvasRenderingContext2D) {
+    drawHeadlights(ctx);
+    drawTaillights(ctx);
+  }
+
+  function drawHeadlights(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.arc(options.length + 2, 9, 9, Math.PI / 2, 3 * Math.PI / 2);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(options.length + 2, 41, 9, Math.PI / 2, 3 * Math.PI / 2);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+  }
+
+  function drawTaillights(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.arc(-2, 8, 6, 3 * Math.PI / 2, Math.PI / 2);
+    ctx.fillStyle = "red";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(-2, 42, 6, 3 * Math.PI / 2, Math.PI / 2);
+    ctx.fillStyle = "red";
+    ctx.fill();
   }
 
   function drawReferencePoint(ctx: CanvasRenderingContext2D) {
