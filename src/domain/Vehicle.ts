@@ -27,22 +27,39 @@ export class Vehicle {
     this._state.placement = newPlacement;
   }
 
+  rotateAround(center: Position, angle: number) {
+    this._state.placement = this.goCircular(center, angle);
+  }
+
   private calculateNewPlacement(duration: number): Placement {
-    const displacement = mult(this._state.velocity, duration);
-    const newPosition = add(this._state.placement.position, displacement);
+    return this.goStraightAhead(duration);
+  }
+
+  private goStraightAhead(duration: number) {
+    const position = this._state.placement.position;
+    const angle = this._state.placement.angle;
+
+    const velocity = this._state.velocity;
+    const displacement = mult(velocity, duration);
+
+    const newPosition = add(position, displacement);
 
     return {
-      ...this._state.placement,
       position: newPosition,
+      angle: angle,
     };
   }
 
-  rotateAround(center: Position, angle: number) {
-    const oldPosition = this._state.placement.position;
+  private goCircular(center: Position, rotateBy: number) {
+    const position = this._state.placement.position;
+    const angle = this._state.placement.angle;
 
-    const newPosition = rotateAround(oldPosition, center, angle);
+    const newPosition = rotateAround(position, center, rotateBy);
+    const newAngle = angle + rotateBy;
 
-    this._state.placement.angle += angle;
-    this._state.placement.position = newPosition;
+    return {
+      position: newPosition,
+      angle: newAngle
+    };
   }
 }
