@@ -16,14 +16,27 @@ export default function Simulation() {
   const startTime = new Date();
   let previousTime = startTime;
 
+  const gridOptions = {
+    x: {
+      start: -250,
+      end: 10000,
+      interval: 500,
+    },
+    y: {
+      start: -1000,
+      end: +1000,
+      interval: 100,
+    }
+  };
+
   const carOptions: VehicleOptions = {
     length: 120,
     width: 50,
     color: "rgba(0, 127, 255, 0.75)",
   };
-const carInitialState: VehicleState = {
+  const carInitialState: VehicleState = {
     position: {
-      x: 50,
+      x: 0,
       y: 250,
     },
     velocity: {
@@ -64,27 +77,14 @@ const carInitialState: VehicleState = {
   }
 
   function getGraphicLayer() {
-    const gridOptions = {
-      x: {
-        start: -250,
-        end: 10000,
-        interval: 500,
-      },
-      y: {
-        start: -1000,
-        end: +1000,
-        interval: 100,
-      }
-    };
-
     const now = new Date();
     const duration = (now.getTime() - previousTime.getTime()) / 1000;
     previousTime = now;
 
     // car.advance(duration);
-    const angularSpeed = Math.PI/2;
+    const angularSpeed = Math.PI / 2;
     const angle = duration * angularSpeed;
-    car.rotateAround({x: 250, y: 250}, angle);
+    car.rotateAround({ x: 250, y: 250 }, angle);
 
     return [
       grid(gridOptions),
