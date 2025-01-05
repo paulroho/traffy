@@ -14,7 +14,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     render: ctx => {
       ctx.save();
 
-      ctx.translate(state.placement.position.x, state.placement.position.y);
+      ctx.translate(state.placement.x, state.placement.y);
       ctx.rotate(state.placement.angle);
 
       drawReferencePoint(ctx);

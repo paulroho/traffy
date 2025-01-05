@@ -60,4 +60,4 @@ export function distance(p1: Position, p2: Position): number {
 
 export type Position = Flavored<Vector2d, "position">;
 
-export type Placement = { position: Position } & { angle: number };
+export type Placement = Position & { angle: number };

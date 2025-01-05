@@ -40,10 +40,8 @@ export default function Simulation() {
   };
   const carInitialState: VehicleState = {
     placement: {
-      position: {
-        x: 100,
-        y: 250,
-      },
+      x: 100,
+      y: 250,
       angle: -Math.PI / 2
     },
     speed: 100,
