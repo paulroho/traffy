@@ -33,6 +33,10 @@ export default function Simulation() {
     length: 120,
     width: 50,
     color: "rgba(0, 127, 255, 0.75)",
+    overhangRelative: {
+      rear: 0.2,
+      front: 0.2,
+    }
   };
   const carInitialState: VehicleState = {
     placement: {

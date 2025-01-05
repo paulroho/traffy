@@ -3,9 +3,10 @@ import { Renderable } from "../basics";
 import { Vehicle } from "@/domain/Vehicle";
 
 export default function renderableVehicle(vehicle: Vehicle): Renderable {
-  const rearAxisFromVeryBack = 0.2;
-  const wheelBase = 0.6 * vehicle.options.length;
-  const veryBack = -rearAxisFromVeryBack * vehicle.options.length;
+  const rearOverhang = vehicle.options.overhangRelative.rear * vehicle.options.length;
+  const wheelbaseRelative = 1 - (vehicle.options.overhangRelative.rear + vehicle.options.overhangRelative.front);
+  const wheelbase = wheelbaseRelative * vehicle.options.length;
+  const veryBack = -rearOverhang;
   const options = vehicle.options;
   const state = vehicle.state;
 
@@ -26,7 +27,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   function drawVehicle(ctx: CanvasRenderingContext2D) {
     ctx.save();
 
-    ctx.translate(-rearAxisFromVeryBack * options.length, -options.width / 2);
+    ctx.translate(-rearOverhang, -options.width / 2);
 
     ctx.lineWidth = 3;
     ctx.strokeRect(0, 0, options.length, options.width);
@@ -45,8 +46,8 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   function drawWheels(ctx: CanvasRenderingContext2D) {
     drawWheel(ctx, { x: 0, y: 0 }, 0);
     drawWheel(ctx, { x: 0, y: options.width }, 0);
-    drawWheel(ctx, { x: wheelBase, y: 0 }, state.turnAngle);
-    drawWheel(ctx, { x: wheelBase, y: options.width }, state.turnAngle);
+    drawWheel(ctx, { x: wheelbase, y: 0 }, state.turnAngle);
+    drawWheel(ctx, { x: wheelbase, y: options.width }, state.turnAngle);
   }
 
   function drawWheel(ctx: CanvasRenderingContext2D, position: Position, angle: number) {

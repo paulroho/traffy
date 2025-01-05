@@ -4,6 +4,10 @@ export type VehicleOptions = {
   length: number;
   width: number;
   color: string;
+  overhangRelative: {
+    rear: number,
+    front: number,
+  }
 };
 
 export type VehicleState = {
@@ -53,7 +57,7 @@ export class Vehicle {
   }
 
   private makeATurn(duration: number) {
-    const rotationCenter = { x: 250, y: 250 }; // TODO: Calculate from wheel distance and turnAngle
+    const rotationCenter = { x: 250, y: 250 }; // TODO: Calculate from wheel base and turnAngle
 
     const rearAxisCenter = this._state.placement.position;
     const radius = distance(rotationCenter, rearAxisCenter);
