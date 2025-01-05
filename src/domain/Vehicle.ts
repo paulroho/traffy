@@ -1,4 +1,4 @@
-import { add, mult, Position, rotateAround, Velocity2d } from "./basics";
+import { add, mult, Placement, Position, rotateAround, Velocity2d } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -7,9 +7,8 @@ export type VehicleOptions = {
 };
 
 export type VehicleState = {
-  position: Position;
+  placement: Placement;
   velocity: Velocity2d;
-  angle: number;
   turnAngle: number;
 };
 
@@ -23,24 +22,27 @@ export class Vehicle {
   get state() { return this._state; }
 
   advance(duration: number) {
-    const newPosition = this.calculateNewPosition(duration);
+    const newPlacement = this.calculateNewPlacement(duration);
 
-    this._state.position = newPosition;
+    this._state.placement = newPlacement;
   }
 
-  private calculateNewPosition(duration: number) {
+  private calculateNewPlacement(duration: number): Placement {
     const displacement = mult(this._state.velocity, duration);
-    const newPosition = add(this._state.position, displacement);
+    const newPosition = add(this._state.placement.position, displacement);
 
-    return newPosition;
+    return {
+      ...this._state.placement,
+      position: newPosition,
+    };
   }
 
   rotateAround(center: Position, angle: number) {
-    const oldPosition = this._state.position;
+    const oldPosition = this._state.placement.position;
 
     const newPosition = rotateAround(oldPosition, center, angle);
 
-    this._state.angle += angle;
-    this._state.position = newPosition;
+    this._state.placement.angle += angle;
+    this._state.placement.position = newPosition;
   }
 }

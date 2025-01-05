@@ -35,15 +35,17 @@ export default function Simulation() {
     color: "rgba(0, 127, 255, 0.75)",
   };
   const carInitialState: VehicleState = {
-    position: {
-      x: 0,
-      y: 250,
+    placement: {
+      position: {
+        x: 0,
+        y: 250,
+      },
+      angle: Math.PI / 2
     },
     velocity: {
       x: 20,
       y: 5,
     },
-    angle: Math.PI / 2,
     turnAngle: 0,
   };
   const car = new Vehicle(carOptions, carInitialState);

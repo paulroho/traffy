@@ -48,3 +48,5 @@ export function rotateAround(position: Position, center: Position, angle: number
 export type Position = Flavored<Vector2d, "position">;
 
 export type Velocity2d = Flavored<Vector2d, "velocity">;
+
+export type Placement = { position: Position } & { angle: number };
