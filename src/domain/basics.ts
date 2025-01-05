@@ -13,6 +13,23 @@ export function add(p1: Position, p2: Position): Position {
     }
 }
 
+export function subtract(p1: Position, p2: Position): Position {
+    return {
+        x: p1.x - p2.x,
+        y: p1.y - p2.y,
+    }
+}
+
+export function rotate(pos: Position, angle: number): Position {
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    return {
+        x: cos * pos.x - sin * pos.y,
+        y: sin * pos.x + cos * pos.y,
+    }
+}
+
 export function mult(velocity: Velocity2d, time: number): Position {
     return {
         x: velocity.x * time,

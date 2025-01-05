@@ -23,14 +23,14 @@ export default function Simulation() {
   };
 const carInitialState: VehicleState = {
     position: {
-      x: 0,
+      x: 50,
       y: 250,
     },
     velocity: {
       x: 20,
       y: 5,
     },
-    angle: Math.PI / 10,
+    angle: Math.PI / 2,
     turnAngle: 0,
   };
   const car = new Vehicle(carOptions, carInitialState);
@@ -81,7 +81,10 @@ const carInitialState: VehicleState = {
     const duration = (now.getTime() - previousTime.getTime()) / 1000;
     previousTime = now;
 
-    car.advance(duration);
+    // car.advance(duration);
+    const angularSpeed = Math.PI/2;
+    const angle = duration * angularSpeed;
+    car.rotateAround({x: 250, y: 250}, angle);
 
     return [
       grid(gridOptions),

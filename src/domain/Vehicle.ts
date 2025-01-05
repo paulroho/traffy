@@ -1,4 +1,4 @@
-import { add, mult, Position, Velocity2d } from "./basics";
+import { add, mult, Position, rotate, subtract, Velocity2d } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -28,6 +28,18 @@ export class Vehicle {
     this._state = {
       ...this._state,
       position: add(this._state.position, displacement),
+    };
+  }
+
+  rotateAround(center: Position, angle: number) {
+    this._state.angle += angle;
+    const inRotationCenter = subtract(this._state.position, center);
+    const rotated = rotate(inRotationCenter, angle);
+    const newPosition = add(rotated, center);
+
+    this._state = {
+      ...this._state,
+      position: newPosition,
     };
   }
 }
