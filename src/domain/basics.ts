@@ -30,7 +30,7 @@ export function rotate(pos: Position, angle: number): Position {
     }
 }
 
-export function mult(velocity: Velocity2d, time: number): Position {
+export function mult(velocity: Vector2d, time: number): Vector2d {
     return {
         x: velocity.x * time,
         y: velocity.y * time,
@@ -45,8 +45,13 @@ export function rotateAround(position: Position, center: Position, angle: number
     return newPosition;
 }
 
-export type Position = Flavored<Vector2d, "position">;
+export function magnitudeInDirection(magnitude: number, angle: number): Vector2d {
+    return {
+        x: Math.cos(angle) * magnitude,
+        y: Math.sin(angle) * magnitude,
+    };
+}
 
-export type Velocity2d = Flavored<Vector2d, "velocity">;
+export type Position = Flavored<Vector2d, "position">;
 
 export type Placement = { position: Position } & { angle: number };
