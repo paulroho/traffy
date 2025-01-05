@@ -68,26 +68,38 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   }
 
   function drawHeadlights(ctx: CanvasRenderingContext2D) {
-    ctx.beginPath();
-    ctx.arc(options.length + 2, 9, 9, Math.PI / 2, 3 * Math.PI / 2);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
+    const width = 12;
+    const length = 10;
+    const offsetAcross = 4;
 
     ctx.beginPath();
-    ctx.arc(options.length + 2, 41, 9, Math.PI / 2, 3 * Math.PI / 2);
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = "#ffffbb";
+
+    ctx.fillRect(
+      options.length - length + 1, offsetAcross,
+      length, width);
+    ctx.fillRect(
+      options.length - length + 1, options.width - width - offsetAcross,
+      length, width);
+
     ctx.fill();
   }
 
   function drawTaillights(ctx: CanvasRenderingContext2D) {
-    ctx.beginPath();
-    ctx.arc(-2, 8, 6, 3 * Math.PI / 2, Math.PI / 2);
-    ctx.fillStyle = "red";
-    ctx.fill();
+    const radius = 6;
+    const offsetAcross = 8;
+    const offsetLength = -2;
 
     ctx.beginPath();
-    ctx.arc(-2, 42, 6, 3 * Math.PI / 2, Math.PI / 2);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "#aa0000";
+
+    ctx.arc(
+      offsetLength, offsetAcross,
+      radius, 3 * Math.PI / 2, Math.PI / 2);
+    ctx.arc(
+      offsetLength, options.width - offsetAcross,
+      radius, 3 * Math.PI / 2, Math.PI / 2);
+
     ctx.fill();
   }
 
