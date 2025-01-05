@@ -3,6 +3,9 @@ import { Renderable } from "../basics";
 import { Vehicle } from "@/domain/Vehicle";
 
 export default function renderableVehicle(vehicle: Vehicle): Renderable {
+  const rearAxisFromVeryBack = 0.2;
+  const wheelBase = 0.6 * vehicle.options.length;
+  const veryBack = -rearAxisFromVeryBack * vehicle.options.length;
   const options = vehicle.options;
   const state = vehicle.state;
 
@@ -13,8 +16,8 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
       ctx.translate(state.placement.position.x, state.placement.position.y);
       ctx.rotate(state.placement.angle);
 
-      drawVehicle(ctx);
       drawReferencePoint(ctx);
+      drawVehicle(ctx);
 
       ctx.restore();
     }
@@ -23,7 +26,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   function drawVehicle(ctx: CanvasRenderingContext2D) {
     ctx.save();
 
-    ctx.translate(-options.length / 2, -options.width / 2);
+    ctx.translate(-rearAxisFromVeryBack * options.length, -options.width / 2);
 
     ctx.lineWidth = 3;
     ctx.strokeRect(0, 0, options.length, options.width);
@@ -31,20 +34,19 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.fillStyle = options.color;
     ctx.fillRect(0, 0, options.length, options.width);
 
+    ctx.restore();
+
+    ctx.translate(0, -options.width / 2);
+
     drawWheels(ctx);
     drawLights(ctx);
-
-    ctx.restore();
   }
 
   function drawWheels(ctx: CanvasRenderingContext2D) {
-    const rearTiresX = 0.2 * options.length;
-    const frontTiresX = 0.8 * options.length;
-
-    drawWheel(ctx, { x: frontTiresX, y: 0 }, state.turnAngle);
-    drawWheel(ctx, { x: frontTiresX, y: options.width }, state.turnAngle);
-    drawWheel(ctx, { x: rearTiresX, y: 0 }, 0);
-    drawWheel(ctx, { x: rearTiresX, y: options.width }, 0);
+    drawWheel(ctx, { x: 0, y: 0 }, 0);
+    drawWheel(ctx, { x: 0, y: options.width }, 0);
+    drawWheel(ctx, { x: wheelBase, y: 0 }, state.turnAngle);
+    drawWheel(ctx, { x: wheelBase, y: options.width }, state.turnAngle);
   }
 
   function drawWheel(ctx: CanvasRenderingContext2D, position: Position, angle: number) {
@@ -76,10 +78,10 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.fillStyle = "#ffffbb";
 
     ctx.fillRect(
-      options.length - length + 1, offsetAcross,
+      veryBack + options.length - length + 1, offsetAcross,
       length, width);
     ctx.fillRect(
-      options.length - length + 1, options.width - width - offsetAcross,
+      veryBack + options.length - length + 1, options.width - width - offsetAcross,
       length, width);
 
     ctx.fill();
@@ -94,10 +96,10 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.fillStyle = "#aa0000";
 
     ctx.arc(
-      offsetLength, offsetAcross,
+      veryBack + offsetLength, offsetAcross,
       radius, 3 * Math.PI / 2, Math.PI / 2);
     ctx.arc(
-      offsetLength, options.width - offsetAcross,
+      veryBack + offsetLength, options.width - offsetAcross,
       radius, 3 * Math.PI / 2, Math.PI / 2);
 
     ctx.fill();
@@ -106,7 +108,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   function drawReferencePoint(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.arc(0, 0, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "yellow";
     ctx.fill();
   }
 }
