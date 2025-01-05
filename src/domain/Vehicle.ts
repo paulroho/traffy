@@ -23,16 +23,20 @@ export class Vehicle {
   get state() { return this._state; }
 
   advance(duration: number) {
-    const displacement = mult(this._state.velocity, duration);
+    const newPosition = this.calculateNewPosition(duration);
 
-    this._state = {
-      ...this._state,
-      position: add(this._state.position, displacement),
-    };
+    this._state.position = newPosition;
+  }
+
+  private calculateNewPosition(duration: number) {
+    const displacement = mult(this._state.velocity, duration);
+    const newPosition = add(this._state.position, displacement);
+
+    return newPosition;
   }
 
   rotateAround(center: Position, angle: number) {
-const oldPosition = this._state.position;
+    const oldPosition = this._state.position;
 
     const newPosition = rotateAround(oldPosition, center, angle);
 
