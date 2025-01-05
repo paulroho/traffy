@@ -32,7 +32,9 @@ export class Vehicle {
   }
 
   private calculateNewPlacement(duration: number): Placement {
-    return this.goStraightAhead(duration);
+    return (this._state.turnAngle === 0)
+      ? this.goStraightAhead(duration)
+      : this.makeATurn(duration);
   }
 
   private goStraightAhead(duration: number) {
@@ -48,6 +50,15 @@ export class Vehicle {
       position: newPosition,
       angle: angle,
     };
+  }
+
+  private makeATurn(duration: number) {
+    const rotationCenter = { x: 250, y: 250 }; // TODO: Calculate from wheel distance and turnAngle
+    const angularSpeed = Math.PI / 2; // TODO: Calculate from velocity and radius
+
+    const angle = duration * angularSpeed;
+
+    return this.goCircular(rotationCenter, angle);
   }
 
   private goCircular(center: Position, rotateBy: number) {
