@@ -1,4 +1,4 @@
-import { add, getVector, mult, Placement, Position, rotateAround } from "./basics";
+import { add, distance, getVector, mult, Placement, Position, rotateAround } from "./basics";
 
 export type VehicleOptions = {
   length: number;
@@ -54,8 +54,10 @@ export class Vehicle {
 
   private makeATurn(duration: number) {
     const rotationCenter = { x: 250, y: 250 }; // TODO: Calculate from wheel distance and turnAngle
-    const angularSpeed = Math.PI / 2; // TODO: Calculate from velocity and radius
 
+    const rearAxisCenter = this._state.placement.position;
+    const radius = distance(rotationCenter, rearAxisCenter);
+    const angularSpeed = this._state.velocity / radius;
     const angle = duration * angularSpeed;
 
     return this.goCircular(rotationCenter, angle);

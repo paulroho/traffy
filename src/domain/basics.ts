@@ -52,6 +52,12 @@ export function getVector(magnitude: number, angle: number): Vector2d {
     };
 }
 
+export function distance(p1: Position, p2: Position): number {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
 export type Position = Flavored<Vector2d, "position">;
 
 export type Placement = { position: Position } & { angle: number };
