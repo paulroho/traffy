@@ -37,6 +37,14 @@ export function mult(velocity: Velocity2d, time: number): Position {
     }
 }
 
+export function rotateAround(position: Position, center: Position, angle: number) {
+    const inRotationCenter = subtract(position, center);
+    const rotated = rotate(inRotationCenter, angle);
+    const newPosition = add(rotated, center);
+
+    return newPosition;
+}
+
 export type Position = Flavored<Vector2d, "position">;
 
 export type Velocity2d = Flavored<Vector2d, "velocity">;
