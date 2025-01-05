@@ -31,10 +31,6 @@ export class Vehicle {
     this._state.placement = newPlacement;
   }
 
-  rotateAround(center: Position, angle: number) {
-    this._state.placement = this.goCircular(center, angle);
-  }
-
   private calculateNewPlacement(duration: number): Placement {
     return (this._state.turnAngle === 0)
       ? this.goStraightAhead(duration)
