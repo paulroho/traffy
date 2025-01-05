@@ -57,14 +57,23 @@ export class Vehicle {
   }
 
   private makeATurn(duration: number): Placement {
-    const rotationCenter = { x: 250, y: 250 }; // TODO: Calculate from wheel base and turnAngle
-
-    const rearAxisCenter: Position = this._state.placement;
-    const radius = distance(rotationCenter, rearAxisCenter);
-    const angularSpeed = this._state.speed / radius;
-    const angle = duration * angularSpeed;
+    const rotationCenter = this.calculateRotationCenter();
+    const angle = this.calculateAngle(rotationCenter, duration);
 
     return this.goCircular(rotationCenter, angle);
+  }
+
+  private calculateRotationCenter() {
+    // TODO: Calculate from wheel base and turnAngle
+    return { x: 250, y: 250 };
+  }
+
+  private calculateAngle(rotationCenter: Position, duration: number) {
+    const rearAxisCenter = this._state.placement;
+    const radius = distance(rotationCenter, rearAxisCenter);
+    const angularSpeed = this._state.speed / radius;
+
+    return duration * angularSpeed;
   }
 
   private goCircular(center: Position, rotateBy: number): Placement {
