@@ -1,4 +1,4 @@
-import { Position } from "@/domain/basics";
+import { add, isPoint, MetaStateItem, Position, Vector2d, vectorWithLength } from "@/domain/basics";
 import { Renderable } from "../basics";
 import { Vehicle } from "@/domain/Vehicle";
 
@@ -21,6 +21,8 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
       drawVehicle(ctx);
 
       ctx.restore();
+
+      drawMetaState(ctx);
     }
   }
 
@@ -111,5 +113,41 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.arc(0, 0, 5, 0, 2 * Math.PI);
     ctx.fillStyle = "yellow";
     ctx.fill();
+  }
+
+  // TODO: Extract all those meta state functions
+  function drawMetaState(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    vehicle.metaState.forEach(item => drawMetaStateItem(ctx, item));
+    ctx.restore();
+  }
+
+  function drawMetaStateItem(ctx: CanvasRenderingContext2D, item: MetaStateItem) {
+    if (isPoint(item)) {
+      drawPoint(ctx, item, item.info);
+    }
+    else {
+      const fromTo: Vector2d = vectorWithLength(item.vector, item.length)
+      const to = add(item.from, fromTo);
+      drawArrow(ctx, item.from, to, item.info);
+    }
+  }
+
+  function drawPoint(ctx: CanvasRenderingContext2D, position: Position, info: string) {
+    ctx.beginPath();
+    ctx.arc(position.x, position.y, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = "#444";
+    ctx.fill();
+  }
+
+  function drawArrow(ctx: CanvasRenderingContext2D, from: Position, to: Position, info: string) {
+    ctx.beginPath();
+
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#444";
+    ctx.stroke();
   }
 }
