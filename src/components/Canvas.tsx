@@ -1,10 +1,11 @@
 'use client'
 
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { KeyboardEventHandler, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { Position } from "../domain/basics";
 
 type CanvasProps = {
     draw: (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => void,
+    onKeyDown: (key: string) => void,
 };
 export default function Canvas(props: CanvasProps) {
     const canvasRef = useRef(null);
@@ -55,11 +56,16 @@ export default function Canvas(props: CanvasProps) {
         });
     }
 
+    const onKeyDown: KeyboardEventHandler<HTMLCanvasElement> =
+        ($event) => props.onKeyDown($event.key);
+
     return (
         <canvas
             ref={canvasRef}
             className="w-full h-full border-red-300 border-2"
             onMouseMove={onMouseMove}
+            tabIndex={1}
+            onKeyDown={onKeyDown}
         ></canvas>
     );
 }

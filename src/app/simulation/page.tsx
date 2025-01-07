@@ -45,7 +45,7 @@ export default function Simulation() {
       angle: -Math.PI / 2
     },
     speed: 100,
-    turnAngle: Math.PI / 6,
+    turnAngle: 0.4,
   };
   const car = new Vehicle(carOptions, carInitialState);
 
@@ -63,10 +63,22 @@ export default function Simulation() {
     );
   }
 
+  const onKeyDown = (key: string) => {
+    switch (key) {
+      case "ArrowLeft": car.turnLeft();
+        break;
+      case "ArrowRight": car.turnRight();
+        break;
+    }
+  }
+
   return (
     <div className="h-lvh p-4">
       <main className="flex flex-col items-center h-full">
-        <Canvas draw={draw} />
+        <Canvas
+          draw={draw}
+          onKeyDown={onKeyDown}
+        />
       </main>
     </div>
   );
@@ -81,6 +93,7 @@ export default function Simulation() {
     const now = new Date();
     const duration = (now.getTime() - previousTime.getTime()) / 1000;
     previousTime = now;
+
 
     car.advance(duration);
 

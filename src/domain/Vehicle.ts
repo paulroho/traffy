@@ -34,6 +34,14 @@ export class Vehicle {
     this._state.placement = newPlacement;
   }
 
+  turnLeft() {
+    this._state.turnAngle = Math.round((this._state.turnAngle - 0.05)*100)/100;
+  }
+
+  turnRight() {
+    this._state.turnAngle = Math.round((this._state.turnAngle + 0.05)*100)/100;
+  }
+
   private addMetaPoint(info: string, position: Position) {
     this._metaState.push({...position, info});
   }
@@ -107,7 +115,7 @@ export class Vehicle {
   private calculateAngle(rotationCenter: Position, duration: number) {
     const rearAxisCenter = this._state.placement;
     const radius = distance(rotationCenter, rearAxisCenter);
-    const angularSpeed = this._state.speed / radius;
+    const angularSpeed = Math.sign(this._state.turnAngle) * this._state.speed / radius;
 
     return duration * angularSpeed;
   }
