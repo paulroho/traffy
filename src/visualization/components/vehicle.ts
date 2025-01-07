@@ -138,6 +138,9 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.arc(position.x, position.y, 5, 0, 2 * Math.PI);
     ctx.fillStyle = "#444";
     ctx.fill();
+
+    ctx.font = "2rem sans-serif";
+    ctx.fillText(info, position.x + 5, position.y + 5);
   }
 
   function drawArrow(ctx: CanvasRenderingContext2D, from: Position, to: Position, info: string) {
@@ -149,5 +152,8 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.lineWidth = 3;
     ctx.strokeStyle = "#444";
     ctx.stroke();
+
+    ctx.font = "2rem sans-serif";
+    ctx.fillText(info, (to.x + from.x) / 2 + 5, (to.y + from.y) / 2 + 5);
   }
 }
