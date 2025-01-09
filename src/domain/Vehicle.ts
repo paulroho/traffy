@@ -35,19 +35,27 @@ export class Vehicle {
   }
 
   turnLeft() {
-    this._state.turnAngle = Math.round((this._state.turnAngle - 0.05)*100)/100;
+    this._state.turnAngle = Math.round((this._state.turnAngle - 0.05) * 100) / 100;
   }
 
   turnRight() {
-    this._state.turnAngle = Math.round((this._state.turnAngle + 0.05)*100)/100;
+    this._state.turnAngle = Math.round((this._state.turnAngle + 0.05) * 100) / 100;
+  }
+
+  break() {
+    this._state.speed -= 5;
+  }
+
+  accelerate() {
+    this._state.speed += 5;
   }
 
   private addMetaPoint(info: string, position: Position) {
-    this._metaState.push({...position, info});
+    this._metaState.push({ ...position, info });
   }
 
   private addMetaVector(info: string, vector: Vector2d, from: Position) {
-    this._metaState.push({from, vector, length: 100, info});
+    this._metaState.push({ from, vector, length: 100, info });
   }
 
   private calculateNewPlacement(duration: number): Placement {
@@ -108,7 +116,7 @@ export class Vehicle {
     const wheelbase = wheelbaseRelative * this.options.length;
     const direction = getVector(1, this._state.placement.angle);
     const fromRearToFrontAxis = vectorWithLength(direction, wheelbase);
-    
+
     return add(this._state.placement, fromRearToFrontAxis);
   }
 

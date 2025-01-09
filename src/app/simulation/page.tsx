@@ -69,6 +69,10 @@ export default function Simulation() {
         break;
       case "ArrowRight": car.turnRight();
         break;
+      case "ArrowDown": car.break();
+        break;
+      case "ArrowUp": car.accelerate();
+        break;
     }
   }
 
