@@ -11,6 +11,7 @@ import { VehicleState } from "@/domain/Vehicle";
 import { VehicleOptions } from "@/domain/Vehicle";
 import { Vehicle } from "../../domain/Vehicle";
 import renderableVehicle from "@/visualization/components/vehicle";
+import { Renderable } from "@/visualization/basics";
 
 export default function Simulation() {
   const startTime = new Date();
@@ -50,17 +51,18 @@ export default function Simulation() {
   const car = new Vehicle(carOptions, carInitialState);
 
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => {
-    const layers = [
-      getBackgroundLayer(),
-      getGraphicLayer(),
-      getOverlayLayer(),
-    ];
+    const render = (layer: Renderable[]) => {
+      layer.forEach(r => r.render(ctx, frameCount, mousePosition));
+    }
 
-    layers.forEach(
-      layer => layer.forEach(
-        r => r.render(ctx, frameCount, mousePosition)
-      )
-    );
+    render(getBackgroundLayer());
+    
+    // ctx.save();
+    // ctx.translate(frameCount, 0);
+    render(getGraphicLayer());
+    // ctx.restore();
+
+    render(getOverlayLayer());
   }
 
   const onKeyDown = (key: string) => {
@@ -72,7 +74,7 @@ export default function Simulation() {
       case "ArrowDown": car.break();
         break;
       case "ArrowUp": car.accelerate();
-        break;
+        break
     }
   }
 
