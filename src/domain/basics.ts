@@ -13,6 +13,18 @@ export type Matrix2x2 = {
     e22: number,
 };
 
+export type Position = Flavored<Vector2d, "position">;
+
+export type Placement = Position & { angle: number };
+
+export type PlacedVector = {
+    from: Position,
+    vector: Vector2d,
+    length: number
+};
+
+export type MetaStateItem = (Position | PlacedVector) & { info: string };
+
 export function add(pos: Position, vect: Vector2d): Position {
     return {
         x: pos.x + vect.x,
@@ -105,18 +117,6 @@ export function matrixMult(mat: Matrix2x2, vect: Vector2d): Vector2d {
         y: mat.e21 * vect.x + mat.e22 * vect.y,
     };
 }
-
-export type Position = Flavored<Vector2d, "position">;
-
-export type Placement = Position & { angle: number };
-
-export type PlacedVector = {
-    from: Position,
-    vector: Vector2d,
-    length: number
-};
-
-export type MetaStateItem = (Position | PlacedVector) & { info: string };
 
 export function isPoint(item: MetaStateItem): item is Position & { info: string } {
     return (item as Position).x !== undefined;
