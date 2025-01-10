@@ -1,0 +1,51 @@
+import { Vehicle, VehicleOptions, VehicleState } from "./Vehicle";
+
+export class World {
+  private now: Date;
+  private vehicles: Vehicle[] = [];
+
+  constructor(now: Date) {
+    this.now = now;
+  }
+
+  setup() {
+    const carOptions: VehicleOptions = {
+      length: 120,
+      width: 50,
+      color: "rgba(0, 127, 255, 0.75)",
+      overhangRelative: {
+        rear: 0.2,
+        front: 0.2,
+      }
+    };
+    const carInitialState: VehicleState = {
+      placement: {
+        x: 100,
+        y: 250,
+        angle: -Math.PI / 2
+      },
+      speed: 100,
+      turnAngle: 0.4,
+    };
+    const car = new Vehicle(carOptions, carInitialState);
+
+    this.addVehicle(car);
+  }
+
+  addVehicle(vehicle: Vehicle) {
+    this.vehicles.push(vehicle);
+  }
+
+  advanceTo(newNow: Date) {
+    const duration = (newNow.getTime() - this.now.getTime()) / 1000;
+    this.now = newNow;
+
+    this.vehicles.forEach(
+      v => v.advance(duration)
+    );
+  }
+
+  get aVehicle(): Vehicle {
+    return this.vehicles[0];
+  }
+}

@@ -7,15 +7,13 @@ import debugInfo from "@/visualization/components/dev-tools/debugInfo";
 import grid from "@/visualization/components/dev-tools/grid";
 import someBackground from "@/visualization/components/dev-tools/someBackground";
 import ledger from "@/visualization/components/dev-tools/ledger";
-import { VehicleState } from "@/domain/Vehicle";
-import { VehicleOptions } from "@/domain/Vehicle";
-import { Vehicle } from "../../domain/Vehicle";
 import renderableVehicle from "@/visualization/components/vehicle";
 import { Renderable } from "@/visualization/basics";
+import { World } from "@/domain/World";
 
 export default function Simulation() {
-  const startTime = new Date();
-  let previousTime = startTime;
+  const world = new World(new Date());
+  world.setup();
 
   const gridOptions = {
     x: {
@@ -30,33 +28,13 @@ export default function Simulation() {
     }
   };
 
-  const carOptions: VehicleOptions = {
-    length: 120,
-    width: 50,
-    color: "rgba(0, 127, 255, 0.75)",
-    overhangRelative: {
-      rear: 0.2,
-      front: 0.2,
-    }
-  };
-  const carInitialState: VehicleState = {
-    placement: {
-      x: 100,
-      y: 250,
-      angle: -Math.PI / 2
-    },
-    speed: 100,
-    turnAngle: 0.4,
-  };
-  const car = new Vehicle(carOptions, carInitialState);
-
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => {
     const render = (layer: Renderable[]) => {
       layer.forEach(r => r.render(ctx, frameCount, mousePosition));
     }
 
     render(getBackgroundLayer());
-    
+
     // ctx.save();
     // ctx.translate(frameCount, 0);
     render(getGraphicLayer());
@@ -67,13 +45,13 @@ export default function Simulation() {
 
   const onKeyDown = (key: string) => {
     switch (key) {
-      case "ArrowLeft": car.turnLeft();
+      case "ArrowLeft": world.aVehicle.turnLeft();
         break;
-      case "ArrowRight": car.turnRight();
+      case "ArrowRight": world.aVehicle.turnRight();
         break;
-      case "ArrowDown": car.break();
+      case "ArrowDown": world.aVehicle.break();
         break;
-      case "ArrowUp": car.accelerate();
+      case "ArrowUp": world.aVehicle.accelerate();
         break
     }
   }
@@ -96,16 +74,11 @@ export default function Simulation() {
   }
 
   function getGraphicLayer() {
-    const now = new Date();
-    const duration = (now.getTime() - previousTime.getTime()) / 1000;
-    previousTime = now;
-
-
-    car.advance(duration);
+    world.advanceTo(new Date());
 
     return [
       grid(gridOptions),
-      renderableVehicle(car),
+      renderableVehicle(world.aVehicle),
     ];
   }
 
