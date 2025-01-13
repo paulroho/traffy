@@ -20,8 +20,8 @@ export class World {
     };
     const carInitialState: VehicleState = {
       placement: {
-        x: 100,
-        y: 250,
+        x: 2500,
+        y: 4000,
         angle: -Math.PI / 2
       },
       speed: 100,

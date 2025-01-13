@@ -1,7 +1,7 @@
 'use client'
 
 import Canvas from "@/components/Canvas";
-import { Position } from "@/domain/basics";
+import { Position, WorldPosition } from "@/domain/basics";
 import clock from "@/visualization/components/dev-tools/clock";
 import debugInfo from "@/visualization/components/dev-tools/debugInfo";
 import grid from "@/visualization/components/dev-tools/grid";
@@ -10,21 +10,29 @@ import ledger from "@/visualization/components/dev-tools/ledger";
 import renderableVehicle from "@/visualization/components/vehicle";
 import { Renderable } from "@/visualization/basics";
 import { World } from "@/domain/World";
+import { createMapper } from "./Mapper";
 
 export default function Simulation() {
   const world = new World(new Date());
   world.setup();
 
+  const worldAtCenter: WorldPosition = {
+    east: 2500,
+    north: 4000,
+  };
+
+  const scaleWorldToDevice = 1 / 10;
+
   const gridOptions = {
     x: {
-      start: -250,
-      end: 10000,
-      interval: 500,
+      start: 0,
+      end: 5000,
+      interval: 250,
     },
     y: {
-      start: -1000,
-      end: +1000,
-      interval: 100,
+      start: 1000,
+      end: 7000,
+      interval: 500,
     }
   };
 
@@ -33,12 +41,29 @@ export default function Simulation() {
       layer.forEach(r => r.render(ctx, frameCount, mousePosition));
     }
 
+    const canvasSize = {
+      width: ctx.canvas.width,
+      height: ctx.canvas.height
+    }
+    const mapper = createMapper(worldAtCenter, canvasSize, scaleWorldToDevice);
+
     render(getBackgroundLayer());
 
-    // ctx.save();
-    // ctx.translate(frameCount, 0);
+    ctx.save();
+    ctx.translate(mapper.offset.x, mapper.offset.y);
+    ctx.scale(mapper.scale.x, mapper.scale.y);
+
+    // render([{
+    //   render: (ctx) => {
+    //     ctx.lineWidth = 10;
+    //     ctx.strokeRect(1000, 2000, 3000, 4000);
+    //     ctx.strokeRect(1500, 6000, 2000, 1000);
+    //     ctx.lineWidth = 1;
+    //   }
+    // }]);
     render(getGraphicLayer());
-    // ctx.restore();
+
+    ctx.restore();
 
     render(getOverlayLayer());
   }

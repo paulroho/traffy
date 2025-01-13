@@ -17,6 +17,20 @@ export type Position = Flavored<Vector2d, "position">;
 
 export type Placement = Position & { angle: number };
 
+export type Size = {
+    width: number,
+    height: number,
+}
+export type Section = {
+    start: number,
+    length: number,
+};
+
+export type WorldPosition = {
+    east: number,
+    north: number,
+}
+
 export type PlacedVector = {
     from: Position,
     vector: Vector2d,

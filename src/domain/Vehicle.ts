@@ -35,11 +35,11 @@ export class Vehicle {
   }
 
   turnLeft() {
-    this._state.turnAngle = Math.round((this._state.turnAngle - 0.05) * 100) / 100;
+    this._state.turnAngle = Math.round((this._state.turnAngle + 0.05) * 100) / 100;
   }
 
   turnRight() {
-    this._state.turnAngle = Math.round((this._state.turnAngle + 0.05) * 100) / 100;
+    this._state.turnAngle = Math.round((this._state.turnAngle - 0.05) * 100) / 100;
   }
 
   break() {
