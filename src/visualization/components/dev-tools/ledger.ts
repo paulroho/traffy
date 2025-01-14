@@ -1,19 +1,25 @@
+import { Mapper } from "@/app/simulation/Mapper";
 import { Renderable } from "../../basics";
+import { WorldPosition } from "@/domain/basics";
 
 export default function ledger(): Renderable {
   return {
-    render: (ctx, _, { x, y }) => {
+    render: (ctx, _, { x, y }, mapper) => {
       ctx.save();
 
       drawLedger(ctx, x, y);
-      showPosition(ctx, x, y);
+      showPosition(ctx, x, y, mapper);
 
       ctx.restore();
     }
   }
 
-  function showPosition(ctx: CanvasRenderingContext2D, x: number, y: number) {
-    const text = x + ', ' + y;
+  function showPosition(ctx: CanvasRenderingContext2D, x: number, y: number, mapper: Mapper) {
+    const worldPos: WorldPosition = {
+      east: (x - mapper.offset.x) / mapper.scale.x,
+      north: (y - mapper.offset.y) / mapper.scale.y,
+    }
+    const text = (+worldPos.east).toFixed(0) + ', ' + (+worldPos.north).toFixed(0);
 
     ctx.font = "1rem sans-serif";
     ctx.fillStyle = "yellow";

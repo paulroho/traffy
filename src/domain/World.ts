@@ -1,10 +1,12 @@
 import { Vehicle, VehicleOptions, VehicleState } from "./Vehicle";
 
 export class World {
+  private startedAt: Date;
   private now: Date;
   private vehicles: Vehicle[] = [];
 
   constructor(now: Date) {
+    this.startedAt = now;
     this.now = now;
   }
 
@@ -30,6 +32,10 @@ export class World {
     const car = new Vehicle(carOptions, carInitialState);
 
     this.addVehicle(car);
+  }
+
+  get millisecondsSinceStarted(): number {
+    return this.now.getTime() - this.startedAt.getTime();
   }
 
   addVehicle(vehicle: Vehicle) {
