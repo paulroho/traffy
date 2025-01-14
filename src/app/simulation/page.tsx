@@ -61,12 +61,26 @@ export default function Simulation() {
     ctx.translate(mapper.offset.x, mapper.offset.y);
     ctx.scale(mapper.scale.x, mapper.scale.y);
 
+    render([{
+      render: (ctx) => {
+        ctx.lineWidth = 10;
+        ctx.strokeRect(1000, 2000, 3000, 4000);
+        ctx.strokeRect(1500, 6000, 2000, 1000);
+        ctx.lineWidth = 1;
+      }
+    }]);
     // render([{
     //   render: (ctx) => {
-    //     ctx.lineWidth = 10;
-    //     ctx.strokeRect(1000, 2000, 3000, 4000);
-    //     ctx.strokeRect(1500, 6000, 2000, 1000);
-    //     ctx.lineWidth = 1;
+    //     drawPoint(ctx, {x:movedWorldAtCenter.east, y:movedWorldAtCenter.north}, "CENTER");
+    //     function drawPoint(ctx: CanvasRenderingContext2D, position: Position, info: string) {
+    //       ctx.beginPath();Ì
+    //       ctx.arc(position.x, position.y, 50, 0, 2 * Math.PI);
+    //       ctx.fillStyle = "#444";
+    //       ctx.fill();
+
+    //       // ctx.font = "20rem sans-serif";
+    //       // ctx.fillText(info, position.x + 5, position.y + 5);
+    //     }
     //   }
     // }]);
     render(getGraphicLayer());
