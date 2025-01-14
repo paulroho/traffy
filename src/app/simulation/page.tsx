@@ -45,6 +45,14 @@ export default function Simulation() {
       width: ctx.canvas.width,
       height: ctx.canvas.height
     }
+
+    // const moveadd = frameCount / 2;
+    // const movedWorldAtCenter: WorldPosition = {
+    //   east: worldAtCenter.east + moveadd,
+    //   north: worldAtCenter.north + moveadd,
+    // }
+    // const zoomedScale = scaleWorldToDevice * (1 + frameCount / 1000);
+    // const mapper = createMapper(movedWorldAtCenter, canvasSize, zoomedScale);
     const mapper = createMapper(worldAtCenter, canvasSize, scaleWorldToDevice);
 
     render(getBackgroundLayer());
