@@ -29,6 +29,16 @@ export type Section = {
 export type WorldPosition = {
     east: number,
     north: number,
+};
+
+export type WorldExtent = {
+    east: number,
+    north: number,
+}
+
+export type WorldRectangle = {
+    westSouthCorner: WorldPosition,
+    extent: WorldExtent,
 }
 
 export type PlacedVector = {
