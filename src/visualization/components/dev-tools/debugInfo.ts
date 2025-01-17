@@ -12,7 +12,7 @@ export default function debugInfo(): Renderable {
 
       ctx.fillStyle = "#aaa";
       ctx.textAlign = "left";
-      ctx.fillText(ctx.canvas.width + 'x' + ctx.canvas.height, 8, 8);
+      ctx.fillText(ctx.canvas.width + ' x ' + ctx.canvas.height, 8, 8);
 
       const visibleWorldRectangle: WorldRectangle = mapper.getVisibleWorldRectangle(ctx.canvas);
       ctx.fillStyle = "white";

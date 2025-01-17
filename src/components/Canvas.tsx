@@ -62,7 +62,7 @@ export default function Canvas(props: CanvasProps) {
     return (
         <canvas
             ref={canvasRef}
-            className="w-full h-full border-red-300 border-2"
+            className="w-full h-full border-red-300 border-0"
             onMouseMove={onMouseMove}
             tabIndex={1}
             onKeyDown={onKeyDown}
