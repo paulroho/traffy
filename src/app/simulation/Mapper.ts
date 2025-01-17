@@ -4,6 +4,13 @@ export class Mapper {
   constructor(
     public readonly scale: Vector2d,
     public readonly offset: Vector2d) { }
+
+    getWorldPosition(position: Position): WorldPosition {
+      return {
+        east: (position.x - this.offset.x) / this.scale.x,
+        north: (position.y - this.offset.y) / this.scale.y,
+      };
+    }
 }
 
 export function createMapper(worldAtCenter: WorldPosition, canvas: Size, scaleWorldToDevice: number): Mapper {

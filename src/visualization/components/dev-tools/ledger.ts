@@ -1,6 +1,5 @@
 import { Mapper } from "@/app/simulation/Mapper";
 import { Renderable } from "../../basics";
-import { WorldPosition } from "@/domain/basics";
 
 export default function ledger(): Renderable {
   return {
@@ -15,10 +14,7 @@ export default function ledger(): Renderable {
   }
 
   function showPosition(ctx: CanvasRenderingContext2D, x: number, y: number, mapper: Mapper) {
-    const worldPos: WorldPosition = {
-      east: (x - mapper.offset.x) / mapper.scale.x,
-      north: (y - mapper.offset.y) / mapper.scale.y,
-    }
+    const worldPos = mapper.getWorldPosition({x,y});
     const text = (+worldPos.east).toFixed(0) + ', ' + (+worldPos.north).toFixed(0);
 
     ctx.font = "1rem sans-serif";
