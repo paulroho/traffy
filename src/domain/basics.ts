@@ -31,14 +31,14 @@ export type WorldPosition = {
     north: number,
 };
 
-export type WorldExtent = {
+export type WorldSize = {
     east: number,
     north: number,
 }
 
 export type WorldRectangle = {
     westSouthCorner: WorldPosition,
-    extent: WorldExtent,
+    size: WorldSize,
 }
 
 export type PlacedVector = {

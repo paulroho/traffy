@@ -11,9 +11,9 @@ export default function debugInfo(): Renderable {
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
-      const visibleWorldRectangle: WorldRectangle = mapper.visibleWorldRectangle;
+      const visibleWorldRectangle = mapper.visibleWorldRectangle;
       ctx.fillStyle = "white";
-      ctx.fillText(visibleWorldRectangle.extent.east.toFixed(0) + 'm x ' + visibleWorldRectangle.extent.north.toFixed(0) + 'm', 8, 8);
+      ctx.fillText(visibleWorldRectangle.size.east.toFixed(0) + 'm x ' + visibleWorldRectangle.size.north.toFixed(0) + 'm', 8, 8);
 
       ctx.fillStyle = "#aaa";
       ctx.fillText(ctx.canvas.width + ' x ' + ctx.canvas.height, 8, 40);

@@ -1,4 +1,4 @@
-import { Position, Size, Vector2d, WorldExtent, WorldPosition, WorldRectangle } from "@/domain/basics";
+import { Position, Size, Vector2d, WorldSize, WorldPosition, WorldRectangle } from "@/domain/basics";
 
 export class Mapper {
   private readonly _scale: Vector2d;
@@ -38,11 +38,11 @@ export class Mapper {
         x: 0,
         y: this._canvas.height
       }),
-      extent: this.worldExtent,
+      size: this.visibleWorldSize,
     };
   }
 
-  get worldExtent(): WorldExtent {
+  get visibleWorldSize(): WorldSize {
     return {
       east: this._canvas.width / this._scale.x,
       north: this._canvas.height / Math.abs(this._scale.y),
