@@ -43,11 +43,11 @@ export class Vehicle {
   }
 
   break() {
-    this._state.speed -= 5;
+    this._state.speed -= 1;
   }
 
   accelerate() {
-    this._state.speed += 5;
+    this._state.speed += 1;
   }
 
   private addMetaPoint(info: string, position: Position) {
@@ -55,7 +55,7 @@ export class Vehicle {
   }
 
   private addMetaVector(info: string, vector: Vector2d, from: Position) {
-    this._metaState.push({ from, vector, length: 100, info });
+    this._metaState.push({ from, vector, length: 10, info });
   }
 
   private calculateNewPlacement(duration: number): Placement {

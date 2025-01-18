@@ -21,12 +21,12 @@ export default function Simulation() {
     north: 4000,
   };
 
-  const scaleWorldToDevice = 1 / 10;
+  const scaleWorldToDevice = 2 / 1;
 
   const gridOptions = {
     interval: {
-      westEast: 1000,
-      southNorth: 500,
+      westEast: 100,
+      southNorth: 50,
     },
   };
 
@@ -36,7 +36,7 @@ export default function Simulation() {
       height: ctx.canvas.height
     }
 
-    const moveadd = world.millisecondsSinceStarted / 10;
+    const moveadd = world.millisecondsSinceStarted / 100;
     const movedWorldAtCenter: WorldPosition = {
       east: worldAtCenter.east + moveadd,
       north: worldAtCenter.north + moveadd,

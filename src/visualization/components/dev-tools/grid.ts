@@ -32,6 +32,7 @@ export default function grid(options: GridOptions): Renderable {
             }
             const interval = options.interval;
 
+            ctx.save();
             ctx.beginPath();
 
             for (const east of positions({
@@ -52,7 +53,9 @@ export default function grid(options: GridOptions): Renderable {
                 ctx.lineTo(northEastCorner.east, north);
             }
 
+            ctx.lineWidth = .1;
             ctx.stroke();
+            ctx.restore();
         }
     }
 }

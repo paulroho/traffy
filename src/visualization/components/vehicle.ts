@@ -31,7 +31,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
 
     ctx.translate(-rearOverhang, -options.width / 2);
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = .3;
     ctx.strokeRect(0, 0, options.length, options.width);
 
     ctx.fillStyle = options.color;
@@ -53,8 +53,8 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   }
 
   function drawWheel(ctx: CanvasRenderingContext2D, position: Position, angle: number) {
-    const width = 10;
-    const diameter = 20;
+    const width = 1;
+    const diameter = 2;
 
     ctx.save();
 
@@ -73,27 +73,27 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
   }
 
   function drawHeadlights(ctx: CanvasRenderingContext2D) {
-    const width = 12;
-    const length = 10;
-    const offsetAcross = 4;
+    const width = 1.2;
+    const length = 1.0;
+    const offsetAcross = .4;
 
     ctx.beginPath();
     ctx.fillStyle = "#ffffbb";
 
     ctx.fillRect(
-      veryBack + options.length - length + 1, offsetAcross,
+      veryBack + options.length - length + .1, offsetAcross,
       length, width);
     ctx.fillRect(
-      veryBack + options.length - length + 1, options.width - width - offsetAcross,
+      veryBack + options.length - length + .1, options.width - width - offsetAcross,
       length, width);
 
     ctx.fill();
   }
 
   function drawTaillights(ctx: CanvasRenderingContext2D) {
-    const radius = 6;
-    const offsetAcross = 8;
-    const offsetLength = -2;
+    const radius = .6;
+    const offsetAcross = .8;
+    const offsetLength = -.2;
 
     ctx.beginPath();
     ctx.fillStyle = "#aa0000";
@@ -110,7 +110,7 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
 
   function drawReferencePoint(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI);
+    ctx.arc(0, 0, .5, 0, 2 * Math.PI);
     ctx.fillStyle = "yellow";
     ctx.fill();
   }
@@ -135,12 +135,12 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
 
   function drawPoint(ctx: CanvasRenderingContext2D, position: Position, info: string) {
     ctx.beginPath();
-    ctx.arc(position.x, position.y, 5, 0, 2 * Math.PI);
+    ctx.arc(position.x, position.y, .5, 0, 2 * Math.PI);
     ctx.fillStyle = "#444";
     ctx.fill();
 
-    ctx.font = "2rem sans-serif";
-    ctx.fillText(info, position.x + 5, position.y + 5);
+    ctx.font = ".2rem sans-serif";
+    ctx.fillText(info, position.x + .5, position.y + .5);
   }
 
   function drawArrow(ctx: CanvasRenderingContext2D, from: Position, to: Position, info: string) {
@@ -149,11 +149,11 @@ export default function renderableVehicle(vehicle: Vehicle): Renderable {
     ctx.moveTo(from.x, from.y);
     ctx.lineTo(to.x, to.y);
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = .3;
     ctx.strokeStyle = "#444";
     ctx.stroke();
 
-    ctx.font = "2rem sans-serif";
-    ctx.fillText(info, (to.x + from.x) / 2 + 5, (to.y + from.y) / 2 + 5);
+    ctx.font = ".2rem sans-serif";
+    ctx.fillText(info, (to.x + from.x) / 2 + .5, (to.y + from.y) / 2 + .5);
   }
 }

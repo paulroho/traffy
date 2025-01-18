@@ -12,8 +12,8 @@ export class World {
 
   setup() {
     const carOptions: VehicleOptions = {
-      length: 120,
-      width: 50,
+      length: 12,
+      width: 5,
       color: "rgba(0, 127, 255, 0.75)",
       overhangRelative: {
         rear: 0.2,
@@ -26,7 +26,7 @@ export class World {
         y: 4000,
         angle: -Math.PI / 2
       },
-      speed: 100,
+      speed: 10,
       turnAngle: 0.4,
     };
     const car = new Vehicle(carOptions, carInitialState);
