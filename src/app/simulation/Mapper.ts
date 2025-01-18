@@ -27,12 +27,12 @@ export class Mapper {
   }
 }
 
-export function createMapper(worldAtCenter: WorldPosition, canvas: Size, scaleWorldToDevice: number): Mapper {
+export function createMapper(worldCenterPosition: WorldPosition, canvas: Size, scaleWorldToDevice: number): Mapper {
   const kx = scaleWorldToDevice;
-  const x0 = canvas.width / 2 - kx * worldAtCenter.east;
+  const x0 = canvas.width / 2 - kx * worldCenterPosition.east;
 
   const ky = -scaleWorldToDevice;
-  const y0 = canvas.height / 2 - ky * worldAtCenter.north;
+  const y0 = canvas.height / 2 - ky * worldCenterPosition.north;
 
   return new Mapper({ x: kx, y: ky }, { x: x0, y: y0 });
 }
