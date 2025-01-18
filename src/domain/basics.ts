@@ -37,7 +37,7 @@ export type WorldSize = {
 }
 
 export type WorldExtent = {
-    westSouthCorner: WorldPosition,
+    southWestCorner: WorldPosition,
     size: WorldSize,
 }
 

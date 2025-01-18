@@ -34,7 +34,7 @@ export class Mapper {
 
   get visibleWorld(): WorldExtent {
     return {
-      westSouthCorner: this.getWorldPosition({
+      southWestCorner: this.getWorldPosition({
         x: 0,
         y: this._canvas.height
       }),

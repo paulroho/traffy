@@ -6,8 +6,10 @@ type GridOptionsDimension = {
     interval: number,
 };
 type GridOptions = {
-    x: GridOptionsDimension,
-    y: GridOptionsDimension,
+    interval: {
+        westEast: number,
+        southNorth: number,
+    },
 };
 
 export default function grid(options: GridOptions): Renderable {
@@ -21,17 +23,32 @@ export default function grid(options: GridOptions): Renderable {
     };
 
     return {
-        render: ctx => {
+        render: (ctx, _, __, mapper) => {
+            const southWestCorner = mapper.visibleWorld.southWestCorner;
+            const northEastCorner = {
+                east: mapper.visibleWorld.southWestCorner.east + mapper.visibleWorld.size.westEast,
+                north: mapper.visibleWorld.southWestCorner.north + mapper.visibleWorld.size.southNorth,
+            }
+            const interval = options.interval;
+
             ctx.beginPath();
 
-            for (const x of positions(options.x)) {
-                ctx.moveTo(x, options.y.start);
-                ctx.lineTo(x, options.y.end);
+            for (const east of positions({
+                start: southWestCorner.east,
+                end: northEastCorner.east,
+                interval: interval.westEast,
+            })) {
+                ctx.moveTo(east, southWestCorner.north);
+                ctx.lineTo(east, northEastCorner.north);
             }
 
-            for (const y of positions(options.y)) {
-                ctx.moveTo(options.x.start, y);
-                ctx.lineTo(options.x.end, y);
+            for (const north of positions({
+                start: southWestCorner.north,
+                end: northEastCorner.north,
+                interval: interval.southNorth,
+            })) {
+                ctx.moveTo(southWestCorner.east, north);
+                ctx.lineTo(northEastCorner.east, north);
             }
 
             ctx.stroke();

@@ -24,16 +24,10 @@ export default function Simulation() {
   const scaleWorldToDevice = 1 / 10;
 
   const gridOptions = {
-    x: {
-      start: 0,
-      end: 5000,
-      interval: 250,
+    interval: {
+      westEast: 1000,
+      southNorth: 500,
     },
-    y: {
-      start: 1000,
-      end: 7000,
-      interval: 500,
-    }
   };
 
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number, mousePosition: Position) => {
