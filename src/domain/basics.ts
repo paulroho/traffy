@@ -32,8 +32,8 @@ export type WorldPosition = {
 };
 
 export type WorldSize = {
-    east: number,
-    north: number,
+    westEast: number,
+    southNorth: number,
 }
 
 export type WorldRectangle = {

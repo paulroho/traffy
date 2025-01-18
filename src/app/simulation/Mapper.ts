@@ -32,7 +32,7 @@ export class Mapper {
     };
   }
 
-  get visibleWorldRectangle(): WorldRectangle {
+  get visibleWorld(): WorldRectangle {
     return {
       westSouthCorner: this.getWorldPosition({
         x: 0,
@@ -44,8 +44,8 @@ export class Mapper {
 
   get visibleWorldSize(): WorldSize {
     return {
-      east: this._canvas.width / this._scale.x,
-      north: this._canvas.height / Math.abs(this._scale.y),
+      westEast: this._canvas.width / this._scale.x,
+      southNorth: this._canvas.height / Math.abs(this._scale.y),
     };
   }
 }
