@@ -24,10 +24,11 @@ export default function grid(options: GridOptions): Renderable {
 
     return {
         render: (ctx, _, __, mapper) => {
-            const southWestCorner = mapper.visibleWorld.southWestCorner;
+            const visibleWorld = mapper.visibleWorld;
+            const southWestCorner = visibleWorld.southWestCorner;
             const northEastCorner = {
-                east: mapper.visibleWorld.southWestCorner.east + mapper.visibleWorld.size.westEast,
-                north: mapper.visibleWorld.southWestCorner.north + mapper.visibleWorld.size.southNorth,
+                east: southWestCorner.east + visibleWorld.size.westEast,
+                north: southWestCorner.north + visibleWorld.size.southNorth,
             }
             const interval = options.interval;
 
