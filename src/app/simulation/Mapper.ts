@@ -3,8 +3,10 @@ import { Position, Size, Vector2d, WorldExtent, WorldPosition, WorldRectangle } 
 export class Mapper {
   private readonly _scale: Vector2d;
   private readonly _offset: Vector2d;
+  private readonly _canvas: Size;
 
   constructor(worldCenterPosition: WorldPosition, canvas: Size, scaleWorldToDevice: number) {
+    this._canvas = canvas;
     this._offset = {
       x: canvas.width / 2 - scaleWorldToDevice * worldCenterPosition.east,
       y: canvas.height / 2 - -scaleWorldToDevice * worldCenterPosition.north
@@ -30,23 +32,20 @@ export class Mapper {
     };
   }
 
-  getWorldExtent(size: Size): WorldExtent {
+  getWorldExtent(): WorldExtent {
     return {
-      east: size.width / this._scale.x,
-      north: size.height / Math.abs(this._scale.y),
+      east: this._canvas.width / this._scale.x,
+      north: this._canvas.height / Math.abs(this._scale.y),
     };
   }
 
-  getVisibleWorldRectangle(canvas: Size): WorldRectangle {
+  getVisibleWorldRectangle(): WorldRectangle {
     return {
       westSouthCorner: this.getWorldPosition({
         x: 0,
-        y: canvas.height
+        y: this._canvas.height
       }),
-      extent: this.getWorldExtent({
-        width: canvas.width,
-        height: canvas.height
-      }),
+      extent: this.getWorldExtent(),
     };
   }
 }
