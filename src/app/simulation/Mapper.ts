@@ -39,8 +39,14 @@ export class Mapper {
 
   getVisibleWorldRectangle(canvas: Size): WorldRectangle {
     return {
-      westSouthCorner: this.getWorldPosition({ x: 0, y: canvas.height }),
-      extent: this.getWorldExtent({ width: canvas.width, height: canvas.height }),
+      westSouthCorner: this.getWorldPosition({
+        x: 0,
+        y: canvas.height
+      }),
+      extent: this.getWorldExtent({
+        width: canvas.width,
+        height: canvas.height
+      }),
     };
   }
 }
