@@ -36,7 +36,7 @@ export type WorldSize = {
     southNorth: number,
 }
 
-export type WorldRectangle = {
+export type WorldExtent = {
     westSouthCorner: WorldPosition,
     size: WorldSize,
 }

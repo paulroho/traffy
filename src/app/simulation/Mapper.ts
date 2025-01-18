@@ -1,4 +1,4 @@
-import { Position, Size, Vector2d, WorldSize, WorldPosition, WorldRectangle } from "@/domain/basics";
+import { Position, Size, Vector2d, WorldSize, WorldPosition, WorldExtent } from "@/domain/basics";
 
 export class Mapper {
   private readonly _scale: Vector2d;
@@ -32,7 +32,7 @@ export class Mapper {
     };
   }
 
-  get visibleWorld(): WorldRectangle {
+  get visibleWorld(): WorldExtent {
     return {
       westSouthCorner: this.getWorldPosition({
         x: 0,

@@ -1,4 +1,3 @@
-import { WorldRectangle } from "@/domain/basics";
 import { Renderable } from "../../basics";
 
 export default function debugInfo(): Renderable {
@@ -11,9 +10,9 @@ export default function debugInfo(): Renderable {
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
-      const visibleWorld = mapper.visibleWorld;
+      const visibleWorldSize = mapper.visibleWorld.size;
       ctx.fillStyle = "white";
-      ctx.fillText(visibleWorld.size.westEast.toFixed(0) + 'm x ' + visibleWorld.size.southNorth.toFixed(0) + 'm', 8, 8);
+      ctx.fillText(visibleWorldSize.westEast.toFixed(0) + 'm x ' + visibleWorldSize.southNorth.toFixed(0) + 'm', 8, 8);
 
       ctx.fillStyle = "#aaa";
       ctx.fillText(ctx.canvas.width + ' x ' + ctx.canvas.height, 8, 40);
