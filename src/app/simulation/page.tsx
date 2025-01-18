@@ -10,7 +10,7 @@ import ledger from "@/visualization/components/dev-tools/ledger";
 import renderableVehicle from "@/visualization/components/vehicle";
 import { Renderable } from "@/visualization/basics";
 import { World } from "@/domain/World";
-import { createMapper } from "./Mapper";
+import { Mapper } from "./Mapper";
 
 export default function Simulation() {
   const world = new World(new Date());
@@ -48,8 +48,8 @@ export default function Simulation() {
       north: worldAtCenter.north + moveadd,
     }
     const zoomedScale = scaleWorldToDevice * (1 + world.millisecondsSinceStarted / 10000);
-    const mapper = createMapper(movedWorldAtCenter, canvasSize, zoomedScale);
-    // const mapper = createMapper(worldAtCenter, canvasSize, scaleWorldToDevice);
+    const mapper = new Mapper(movedWorldAtCenter, canvasSize, zoomedScale);
+    // const mapper = new Mapper(worldAtCenter, canvasSize, scaleWorldToDevice);
 
     const render = (layer: Renderable[]) => {
       layer.forEach(r => r.render(ctx, frameCount, mousePosition, mapper));
