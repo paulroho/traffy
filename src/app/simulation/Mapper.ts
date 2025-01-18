@@ -32,20 +32,20 @@ export class Mapper {
     };
   }
 
-  getWorldExtent(): WorldExtent {
-    return {
-      east: this._canvas.width / this._scale.x,
-      north: this._canvas.height / Math.abs(this._scale.y),
-    };
-  }
-
-  getVisibleWorldRectangle(): WorldRectangle {
+  get visibleWorldRectangle(): WorldRectangle {
     return {
       westSouthCorner: this.getWorldPosition({
         x: 0,
         y: this._canvas.height
       }),
-      extent: this.getWorldExtent(),
+      extent: this.worldExtent,
+    };
+  }
+
+  get worldExtent(): WorldExtent {
+    return {
+      east: this._canvas.width / this._scale.x,
+      north: this._canvas.height / Math.abs(this._scale.y),
     };
   }
 }

@@ -11,7 +11,7 @@ export default function debugInfo(): Renderable {
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
-      const visibleWorldRectangle: WorldRectangle = mapper.getVisibleWorldRectangle();
+      const visibleWorldRectangle: WorldRectangle = mapper.visibleWorldRectangle;
       ctx.fillStyle = "white";
       ctx.fillText(visibleWorldRectangle.extent.east.toFixed(0) + 'm x ' + visibleWorldRectangle.extent.north.toFixed(0) + 'm', 8, 8);
 
