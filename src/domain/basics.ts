@@ -39,6 +39,12 @@ export type WorldSize = {
 export type WorldExtent = {
     southWestCorner: WorldPosition,
     size: WorldSize,
+};
+
+export type RoadSegment = {
+    from: WorldPosition,
+    to: WorldPosition,
+    width: number,
 }
 
 export type PlacedVector = {
@@ -99,6 +105,18 @@ export function distance(p1: Position, p2: Position): number {
     const dx = p2.x - p1.x;
     const dy = p2.y - p1.y;
     return Math.sqrt(dx * dx + dy * dy);
+}
+
+export function distanceWorld(p1: WorldPosition, p2: WorldPosition): number {
+    const de = p2.east - p1.east;
+    const dn = p2.north - p1.north;
+    return Math.sqrt(de * de + dn * dn);
+}
+
+export function angleWorld(from: WorldPosition, to: WorldPosition): number {
+    const de = to.east - from.east;
+    const dn = to.north - from.north;
+    return  Math.atan2(dn, de);
 }
 
 export function getOrthogonalVector(vector: Vector2d): Vector2d {

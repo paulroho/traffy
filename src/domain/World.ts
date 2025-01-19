@@ -1,3 +1,4 @@
+import { RoadSegment } from "./basics";
 import { Vehicle, VehicleOptions, VehicleState } from "./Vehicle";
 
 export class World {
@@ -53,5 +54,30 @@ export class World {
 
   get aVehicle(): Vehicle {
     return this.vehicles[0];
+  }
+
+  get aRoad(): RoadSegment[] {
+    return [
+      {
+        from: { east: 2000, north: 3950 },
+        to: { east: 2400, north: 3950 },
+        width: 10,
+      },
+      {
+        from: { east: 2500, north: 4000 },
+        to: { east: 2600, north: 4100 },
+        width: 10,
+      },
+      {
+        from: { east: 2700, north: 4150 },
+        to: { east: 2800, north: 4150 },
+        width: 10,
+      },
+      {
+        from: { east: 2850, north: 4100 },
+        to: { east: 2850, north: 3900 },
+        width: 10,
+      },
+    ]
   }
 }

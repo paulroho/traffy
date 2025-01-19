@@ -11,6 +11,7 @@ import renderableVehicle from "@/visualization/components/vehicle";
 import { Renderable } from "@/visualization/basics";
 import { World } from "@/domain/World";
 import { Mapper } from "./Mapper";
+import road from "@/visualization/components/road";
 
 export default function Simulation() {
   const world = new World(new Date());
@@ -21,7 +22,7 @@ export default function Simulation() {
     north: 4000,
   };
 
-  const scaleWorldToDevice = 2 / 1;
+  const scaleWorldToDevice = 1 / 1;
 
   const gridOptions = {
     interval: {
@@ -119,6 +120,7 @@ export default function Simulation() {
 
     return [
       grid(gridOptions),
+      road(world.aRoad),
       renderableVehicle(world.aVehicle),
     ];
   }
