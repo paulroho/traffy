@@ -26,10 +26,12 @@ export type Section = {
     length: number,
 };
 
-export type WorldPosition = {
+export type WorldVector2d = {
     east: number,
     north: number,
 };
+
+export type WorldPosition = Flavored<WorldVector2d, "position">;
 
 export type WorldSize = {
     westEast: number,
@@ -41,11 +43,16 @@ export type WorldExtent = {
     size: WorldSize,
 };
 
+export type WorldLine = {
+    position: WorldPosition,
+    direction: WorldVector2d,
+};
+
 export type RoadSegment = {
     from: WorldPosition,
     to: WorldPosition,
     width: number,
-}
+};
 
 export type PlacedVector = {
     from: Position,
@@ -69,6 +76,20 @@ export function subtract(p1: Position, p2: Position): Position {
     }
 }
 
+export function addWorld(pos: WorldPosition, dir: WorldVector2d): WorldVector2d {
+    return {
+        east: pos.east + dir.east,
+        north: pos.north + dir.north,
+    }
+}
+
+export function subtractWorld(p1: WorldPosition, p2: WorldPosition): WorldVector2d {
+    return {
+        east: p1.east - p2.east,
+        north: p1.north - p2.north,
+    }
+}
+
 export function rotate(pos: Position, angle: number): Position {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
@@ -83,6 +104,13 @@ export function mult(vect: Vector2d, fact: number): Vector2d {
     return {
         x: vect.x * fact,
         y: vect.y * fact,
+    }
+}
+
+export function multWorld(vect: WorldVector2d, fact: number): WorldVector2d {
+    return {
+        east: vect.east * fact,
+        north: vect.north * fact,
     }
 }
 
@@ -102,21 +130,19 @@ export function getVector(magnitude: number, angle: number): Vector2d {
 }
 
 export function distance(p1: Position, p2: Position): number {
-    const dx = p2.x - p1.x;
-    const dy = p2.y - p1.y;
-    return Math.sqrt(dx * dx + dy * dy);
+    const vect = subtract(p1, p2);
+    return Math.sqrt(vect.x * vect.x + vect.y * vect.y);
 }
 
 export function distanceWorld(p1: WorldPosition, p2: WorldPosition): number {
-    const de = p2.east - p1.east;
-    const dn = p2.north - p1.north;
-    return Math.sqrt(de * de + dn * dn);
+    const vect = subtractWorld(p1, p2);
+    return Math.sqrt(vect.east * vect.east + vect.north * vect.north);
 }
 
 export function angleWorld(from: WorldPosition, to: WorldPosition): number {
     const de = to.east - from.east;
     const dn = to.north - from.north;
-    return  Math.atan2(dn, de);
+    return Math.atan2(dn, de);
 }
 
 export function getOrthogonalVector(vector: Vector2d): Vector2d {
@@ -158,6 +184,36 @@ export function matrixMult(mat: Matrix2x2, vect: Vector2d): Vector2d {
         x: mat.e11 * vect.x + mat.e12 * vect.y,
         y: mat.e21 * vect.x + mat.e22 * vect.y,
     };
+}
+
+export function matrixMultWorld(mat: Matrix2x2, vect: WorldVector2d): WorldVector2d {
+    return {
+        east: mat.e11 * vect.east + mat.e12 * vect.north,
+        north: mat.e21 * vect.east + mat.e22 * vect.north,
+    };
+}
+
+export function intersectWorld(line1: WorldLine, line2: WorldLine): WorldPosition {
+    const p = line1.position;
+    const r = line1.direction;
+
+    const q = line2.position;
+    const s = line2.direction;
+
+    const mat: Matrix2x2 = {
+        e11: s.east, e12: -r.east,      // TODO: Why those minuses?
+        e21: s.north, e22: -r.north,    // TODO: Why those minuses?
+    };
+
+    const vect: WorldVector2d = {
+        east: r.east * p.north - r.north * p.east,
+        north: s.east * q.north - s.north * q.east,
+    };
+
+    const unscaled = matrixMultWorld(mat, vect);
+    const det = determinant(mat);
+
+    return multWorld(unscaled, 1 / det);
 }
 
 export function isPoint(item: MetaStateItem): item is Position & { info: string } {
