@@ -1,4 +1,4 @@
-import { addWorld, angleWorld, distanceWorld, intersectWorld, multWorld, RoadSegment, subtractWorld, WorldLine, WorldPosition, WorldVector2d } from "@/domain/basics";
+import { angleWorld, distanceWorld, intersectWorld, RoadSegment, subtractWorld, WorldLine, WorldPosition } from "@/domain/basics";
 import { Renderable } from "../basics";
 
 export default function road(segments: RoadSegment[]): Renderable {
@@ -46,14 +46,14 @@ export default function road(segments: RoadSegment[]): Renderable {
             position: road1.from,
             direction: subtractWorld(road1.from, road1.to)
         };
-        const pos11 = addWorld(line1.position, multWorld(line1.direction, -2));
-        const pos12 = addWorld(line1.position, multWorld(line1.direction, +1));
+        // const pos11 = addWorld(line1.position, multWorld(line1.direction, -2));
+        // const pos12 = addWorld(line1.position, multWorld(line1.direction, +1));
         const line2: WorldLine = {
             position: road2.from,
             direction: subtractWorld(road2.from, road2.to)
         };
-        const pos21 = addWorld(line2.position, multWorld(line2.direction, -2));
-        const pos22 = addWorld(line2.position, multWorld(line2.direction, +1));
+        // const pos21 = addWorld(line2.position, multWorld(line2.direction, -2));
+        // const pos22 = addWorld(line2.position, multWorld(line2.direction, +1));
 
         ctx.save();
         // drawCircle(ctx, line1.position, "gray", 20);
