@@ -55,7 +55,7 @@ export default function road(segments: RoadSegment[]): Renderable {
         // const pos21 = addWorld(line2.position, multWorld(line2.direction, -2));
         // const pos22 = addWorld(line2.position, multWorld(line2.direction, +1));
 
-        ctx.save();
+        // ctx.save();
         // drawCircle(ctx, line1.position, "gray", 20);
         // drawCircle(ctx, line2.position, "white", 10);
         // drawCircle(ctx, pos11, "yellow", 20);
@@ -75,7 +75,7 @@ export default function road(segments: RoadSegment[]): Renderable {
 
         const intersection = intersectWorld(line1, line2);
 
-        console.log([intersection.east, intersection.north]);
+        // console.log([intersection.east, intersection.north]);
 
         ctx.save();
         drawCircle(ctx, intersection, "red", 2);
